@@ -27,6 +27,12 @@ public class Main {
             }
             else if(command == "move") {
                 command = sc.next();
+                // Dekod skaknotation for træk til felt indeks
+                byte[] chars = command.substring(0, 3).getBytes();
+                int pieceIndex = chars[0]-'a' + (chars[1]-'1')<<4; //Start index
+                int destinationIndex = chars[2]-'a' + (chars[3]-'1')<<4; // Slut index
+
+                board.move(pieceIndex, destinationIndex)æ
                 // Board move
                 // Ryk brik
             }

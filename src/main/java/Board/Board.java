@@ -82,30 +82,22 @@ public class Board {
 
     /**
      * Tager kommandoer direkte fra konsollen, hvor der skal skrives i Winboard format, derfor skal strengen behandles
-     * @param command
+     * @param from
+     * @param to
      * @return
      */
-    public boolean move (String command) {
-
-        int fieldnumber = 5; // et tal
-        if (field[fieldnumber] == fState.EMPTY) {
-//            field[fieldnumber] = player;
-        } else {
-            return false;
-        }
+    public boolean move (int from, int to) {
+        FieldState piece = field[from];
+        // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
+        field[from] = fState.EMPTY;
+        field[to] = piece;
         moveCount++;
-        if(moveCount == field.length){
-            gameOver = true;
-        }
-        gameWon();
+
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
-        currentField = fieldnumber;
+//        currentField = fieldnumber;
         return true;
     }
-    private void gameWon(){
 
-
-    }
 
 
 }
