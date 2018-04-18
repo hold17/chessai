@@ -1,7 +1,8 @@
 package util;
 
-public enum Piece {
-    NULL(0),
+// Values that you assign the board for each field, depending on chesspiece.
+public enum FieldState {
+    EMPTY(0),
     PAWN(1),
     KNIGHT(2),
     KING(3),
@@ -23,7 +24,7 @@ public enum Piece {
 
     private int value;
 
-    Piece(final int value)
+    FieldState(final int value)
     {
         this.value = value;
     }

@@ -2,5 +2,5 @@ package util;
 
 public enum Color
 {
-    WHITE, BLACK
+    WHITE, BLACK, NULL  // Null hvis uafgjort
 }
