@@ -40,28 +40,34 @@ public class Algorithm {
 
     }
 
-    private static void aiPlay(Board board, int maxply) {
+    private void aiPlay(Board board, int maxply) {
         int alpha = -100;
         int beta = 100; // Bruges som uendelig
         int score =  alphaBetaPruning(board,alpha,beta,0, maxply);
 
     }
 
-    private static int alphaBetaPruning(Board board, int alpha, int beta, int ply, int maxply) {
+    private int alphaBetaPruning(Board board, int alpha, int beta, int ply, int maxply) {
         if(ply++ == maxply || board.gameOver) {
             return score(board);
         }
-        if(board.player == Board.fState.O) {
+        if(board.player == Color.) {
             return getMax(board, alpha, beta, ply, maxply);
         }else {
             return getMin(board, alpha, beta, ply, maxply);
         }
     }
 
-    private static int getMax(Board board, int alpha, int beta, int ply, int maxply) {
-        int indexOfBestMove = -1;
+    private  int getMax(Board board, int alpha, int beta, int ply, int maxply) {
+//        int indexOfBestMove = -1;
+        String bestMove = "";
         for (int i = 0; i < board.field.length; i++) {
-            if(board.field[i] == Board.fState.EMPTY){
+            if(board.getMachine() == board.field[i].getColor()){
+//                Løb igennem samtlige træk og find det bedste
+
+            }
+//            Nedenstående er fra Kryds og bolle!!!
+            if(board.field[i] == FieldState.EMPTY){
                 Board modifiedBoard = board.getDeepCopy();
                 modifiedBoard.move(i);
                 int score = alphaBetaPruning(modifiedBoard,alpha, beta, ply,maxply);
@@ -79,8 +85,8 @@ public class Algorithm {
         }
         return (int)alpha;
     }
-
-    private static int getMin(Board board, int alpha, int beta, int ply, int maxply) {
+    // Fra gamle Kryds og Bolle
+    private  int getMin(Board board, int alpha, int beta, int ply, int maxply) {
         int indexOfBestMove = -1;
         for (int i = 0; i < board.field.length; i++) {
             Board modifiedBoard = board.getDeepCopy();
@@ -99,7 +105,7 @@ public class Algorithm {
         return (int)beta;
     }
 
-    public static void printCurrentBoard(Board board){
+    public void printCurrentBoard(Board board){
         System.out.println("The boardValue looks like so: ");
         System.out.println("+-+-+-+");
         for (int i = 0; i< board.field.length; i++) {
@@ -116,7 +122,7 @@ public class Algorithm {
             }
         }
     }
-    public static void requestUserPlay(Scanner scanner, Board b) {
+    public void requestUserPlay(Scanner scanner, Board b) {
         boolean badMove = true;
         while (badMove) {
             System.out.println("Skriv nummeret på det felt hvor du vil placere din brik: ");
@@ -130,7 +136,7 @@ public class Algorithm {
             }
         }
     }
-    public static int score (Board board) {
+    public int score (Board board) {
         int[] boardValue = new int[] {3,2,3,2,4,2,3,2,3};
         if(board.isGameOver() && board.winner != Board.fState.EMPTY) {
             return (board.player == Board.fState.X) ? 10 : -10; // Spillet er kørt hvor der ikke bliver tjekket for vinder, og det resulterer i dårligt slutspil

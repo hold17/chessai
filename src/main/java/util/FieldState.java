@@ -36,7 +36,10 @@ public enum FieldState {
 
     public Color getColor()
     {
-        return (isWhite() ? Color.WHITE : Color.BLACK);
+        Color fieldColor = Color.NULL;
+        if(isWhite()) fieldColor = Color.WHITE;
+        else if(isBlack()) fieldColor = Color.BLACK;
+        return fieldColor;
     }
 
     public boolean isWhite()

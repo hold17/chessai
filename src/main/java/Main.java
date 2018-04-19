@@ -1,4 +1,5 @@
 import Board.Board;
+import util.Color;
 import util.Square;
 
 import java.util.Scanner;
@@ -20,28 +21,43 @@ public class Main {
         String command = "";
         while (!board.gameOver) {
             command = sc.next();
-            if(command == "quit") System.exit(0);
 
-            else if(command == "new") {
-                // Nulstil brættet
-            }
-            else if(command == "move") {
-                command = sc.next();
-                // Dekod skaknotation for træk til felt indeks
-                byte[] chars = command.substring(0, 3).getBytes();
-                int pieceIndex = chars[0]-'a' + (chars[1]-'1')<<4; //Start index
-                int destinationIndex = chars[2]-'a' + (chars[3]-'1')<<4; // Slut index
+            switch (command){
+                case "quit":
+                    System.exit(0);
+                    break;
+                case "new":
+                    board.initializeBoard();
+                    //Nulstil bræt
+                    break;
+                case "black":
+                    board.setMachine(Color.BLACK);
+                    break;
+                case "white":
+                    board.setMachine(Color.WHITE);
+                    break;
+                case "move":
+                    command = sc.next();
+                    // Dekod skaknotation for træk til felt indeks
+                    byte[] chars = command.substring(0, 3).getBytes();
+                    int pieceIndex = chars[0]-'a' + (chars[1]-'1')<<4; //Start index
+                    int destinationIndex = chars[2]-'a' + (chars[3]-'1')<<4; // Slut index
 
-                board.move(pieceIndex, destinationIndex)æ
-                // Board move
-                // Ryk brik
+                    board.move(pieceIndex, destinationIndex);
+                    // Board move
+                    // Ryk brik
+                    break;
+                    case "go":
+                        break;
+                default:
+                    System.out.println("Ukendt kommando: " + command);
             }
-            else {
-                System.out.println("Ukendt kommando: " + command);
+
+            sc.nextLine(); // Smid resten af linjen væk
         }
-        sc.nextLine(); // Smid resten af linjen væk
-        }
+
     }
+}
 
 
 }
