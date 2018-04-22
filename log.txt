@@ -1,0 +1,13 @@
+xboard
+protover
+new
+random
+level
+post
+hard
+time
+otim
+d2d4
+result
+force
+quit

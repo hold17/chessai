@@ -9,13 +9,33 @@ import java.util.List;
 import util.MultiLevelQueue;
 
 
-public class Rules {
+class Rules {
 
-    public ArrayList<Move> getMoves(final Board gamestate, Square square) {
-        ArrayList<Move> moves = null;
+    ArrayList<Move> getMoves(final Board gamestate, Square square) {
+        ArrayList<Move> moves = new ArrayList<>();
+        FieldState piece = gamestate.getFieldState(square);
+        switch (piece) {
+            case PAWN:
+            case WHITE_PAWN:
+            case BLACK_PAWN:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
+            case ROOK:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
+            case KNIGHT:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
+            case BISHOP:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
+            case QUEEN:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
+            case KING:
+                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
+                break;
 
-        if(gamestate.getFieldState(square) == FieldState.PAWN) {
-            moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
         }
         return moves;
 

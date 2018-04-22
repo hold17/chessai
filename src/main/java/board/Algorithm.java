@@ -25,7 +25,7 @@ public class Algorithm {
         }
     }
 
-    private  int getMax(Board board, int alpha, int beta, int ply, int maxply) {
+    private int getMax(Board board, int alpha, int beta, int ply, int maxply) {
         int indexOfBestPiece = -1;
         int indexOfBestMove = -1;
         for (int i = 0; i < board.field.length; i++) {
@@ -58,7 +58,7 @@ public class Algorithm {
         return alpha;
     }
     // Fra gamle Kryds og Bolle
-    private  int getMin(Board board, int alpha, int beta, int ply, int maxply) {
+    private int getMin(Board board, int alpha, int beta, int ply, int maxply) {
         int indexOfBestPiece = -1;
         int indexOfBestMove = -1;
         for (int i = 0; i < board.field.length; i++) {

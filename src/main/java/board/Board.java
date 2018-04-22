@@ -29,6 +29,7 @@ public class Board {
     public Board() {
         field = new FieldState[128];
         initializeBoard();   // HEX 88
+
     }
 
     /**
@@ -60,7 +61,7 @@ public class Board {
         winner = Color.NULL; // Ingen vinder ved start af spillet
         currentField = -1;
         Startingplayer = Color.WHITE;
-        machine = Color.NULL;
+        machine = Color.BLACK;
 
         for (int i = 0; i<field.length; i++) {
             field[i] = FieldState.EMPTY;
@@ -73,7 +74,7 @@ public class Board {
         field[(Square.F1.getValue())] = FieldState.WHITE_BISHOP;
         field[(Square.G1.getValue())] = FieldState.WHITE_KNIGHT;
         field[(Square.H1.getValue())] = FieldState.WHITE_ROOK;
-        for (int i = Square.A2.getValue(); i<field.length; i+=16) {
+        for (int i = Square.A2.getValue(); i<Square.A2.getValue()+8; i++) {
             field[i] = FieldState.WHITE_PAWN;
         }
         field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
@@ -84,7 +85,7 @@ public class Board {
         field[(Square.F8.getValue())] = FieldState.BLACK_BISHOP;
         field[(Square.G8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.H8.getValue())] = FieldState.BLACK_ROOK;
-        for (int i = Square.A7.getValue(); i<field.length; i+=16) {
+        for (int i = Square.A7.getValue(); i<Square.A7.getValue()+8; i++) {
             field[i] = FieldState.BLACK_PAWN;
         }
 
@@ -102,6 +103,7 @@ public class Board {
         field[from] = fState.EMPTY;
         field[to] = piece;
         moveCount++;
+        lastMove = " "+ Square.getSquare(from)+Square.getSquare(to);
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
 //        currentField = fieldnumber;
     }

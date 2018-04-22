@@ -1,0 +1,38 @@
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+Version: WinBoard master-20140119 + java
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir="C:\Users\Justin\IdeaProjects\chessai-java\out\artifacts\chessai_java_jar") java -jar chessai-java.jar
+791 >first : xboard
+protover 2
+831 <first : #Ukendt kommando: xboard
+832 <first : #Ukendt kommando: protover
+10798 >first : new
+random
+10798 >first : level 40 5 0
+10805 >first : post
+10805 >first : hard
+10808 <first : debug
+10808 <first : usermove
+10808 <first : #Ukendt kommando: random
+10809 <first : #Ukendt kommando: level
+10809 <first : #Ukendt kommando: post
+10809 <first : #Ukendt kommando: hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+44236 >first : time 30000
+44236 >first : otim 30000
+book hit = (NULL)
+44237 >first : d2d4
+44256 <first : #Ukendt kommando: time
+44256 <first : #Ukendt kommando: otim
+44256 <first : #Ukendt kommando: d2d4
+GameEnds(29, xboard exit, 2)
+Interrupting first
+109894 >first : result * {xboard exit}
+109894 >first : force
+109894 >first : quit
