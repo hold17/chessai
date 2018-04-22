@@ -1,32 +1,31 @@
-package Board;
+package board;
 
 
-import javafx.scene.chart.BarChart;
 import util.Color;
 import util.FieldState;
 import util.Square;
 
-import java.util.Timer;
-
 public class Board {
     private int moveCount;
-    protected Color player; //Aktuel spiller
-    private Color winner; // Vinder
-    private Color machine; // AI
+    Color player; //Aktuel spiller
+    Color winner; // Vinder
+    Color machine; // AI
     private Color Startingplayer;
     private long maxMoveTime;
     private long currentMoveStartTime;
 
+    private String lastMove;
+
 
     public boolean gameOver;
+
     public FieldState[] field;
     //    public fState player;
     private int currentField;
-
     FieldState fState;
 
-//    public fState winner;
 
+//    public fState winner;
     public Board() {
         field = new FieldState[128];
         initializeBoard();   // HEX 88
@@ -36,7 +35,7 @@ public class Board {
      * Kopierer brættet til alpha-beta
      * @return kopi af bræt
      */
-    public Board getDeepCopy() {
+    Board getDeepCopy() {
         Board board             = new Board();
         board.field = this.field.clone();
 //        for (int i = 0; i < board.field.length; i++) {
@@ -51,7 +50,7 @@ public class Board {
         return board;
     }
 
-    public boolean isGameOver() {
+    boolean isGameOver() {
         return gameOver;
     }
 
@@ -103,21 +102,28 @@ public class Board {
         field[from] = fState.EMPTY;
         field[to] = piece;
         moveCount++;
-
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
 //        currentField = fieldnumber;
     }
+
     public void go(Board board, Algorithm algorithm) {
         currentMoveStartTime = System.currentTimeMillis()/1000;
         algorithm.aiPlay(board, 5);
 
     }
+    public FieldState getFieldState(final Square square) {
+        return field[square.getValue()];
+    }
 
-    public void setMachine(Color player) {
+    public void setMachineColor(Color player) {
         this.machine = player;
     }
-    public Color getMachine() {
+    Color getMachineColor() {
         return this.machine;
+    }
+
+    public String getLastMove() {
+        return lastMove;
     }
 
 

@@ -10,11 +10,11 @@ import java.util.TreeMap;
  *
  * @param <E>
  */
-public class MultilevelQueue<E> {
+public class MultiLevelQueue<E> {
     private int size;
     final private TreeMap<String, Queue<E>> levels;
 
-    public MultilevelQueue() {
+    public MultiLevelQueue() {
         levels = new TreeMap<>();
     }
 

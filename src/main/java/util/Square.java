@@ -37,6 +37,9 @@ public enum Square {
         final int squareValue = (file + (16 * (rank - 1))) - 1;
         return lookup.get(squareValue);
     }
+    public static Square getSquare(int index) {
+        return lookup.get(index);
+    }
 
     Square(final int value) {
         this.value = value;
@@ -46,34 +49,34 @@ public enum Square {
         return value;
     }
 
-    public MultilevelQueue<Square> getKingMoves() {
+    public MultiLevelQueue<Square> getKingMoves() {
         return getBasicMoves(new int[]{-17, -16, -15, -1, 1, 15, 16, 17}, 1);
     }
 
-    public MultilevelQueue<Square> getQueenMoves() {
+    public MultiLevelQueue<Square> getQueenMoves() {
         return getBasicMoves(new int[] {-17, -16, -15, -1, 1, 15, 16, 17}, 7);
     }
 
-    public MultilevelQueue<Square> getRookMoves() {
+    public MultiLevelQueue<Square> getRookMoves() {
         return getBasicMoves(new int[] {-1, -16, 1, 16}, 7);
     }
 
-    public MultilevelQueue<Square> getBishopMoves() {
+    public MultiLevelQueue<Square> getBishopMoves() {
         return getBasicMoves(new int[] {-17, -15, 15, 17}, 7);
     }
 
-    public MultilevelQueue<Square> getKnightMoves() {
+    public MultiLevelQueue<Square> getKnightMoves() {
         return getBasicMoves(new int[] {-33, -31, -18, -14, 14, 18, 31, 33}, 1);
     }
 
-    public MultilevelQueue<Square> getPawnMoves(final Color color) {
+    public MultiLevelQueue<Square> getPawnMoves(final Color color) {
         if (color == Color.WHITE)
             return getWhitePawnMoves();
         else
             return getBlackPawnMoves();
     }
 
-    public MultilevelQueue<Square> getWhitePawnMoves() {
+    public MultiLevelQueue<Square> getWhitePawnMoves() {
         int[] directions = new int[] {15, 16, 17};
 
         if (getRank() == 2) {
@@ -82,7 +85,7 @@ public enum Square {
         return getBasicMoves(directions, 1);
     }
 
-    public MultilevelQueue<Square> getBlackPawnMoves() {
+    public MultiLevelQueue<Square> getBlackPawnMoves() {
         int[] directions = new int[] {-16, -15, -17};
 
         if (getRank() == 7) {
@@ -99,8 +102,8 @@ public enum Square {
      * @param maxDistance  maximum move distance of the piece
      * @return Multilevel queue of all valid moves for the specific instructions (of the piece)
      */
-    private MultilevelQueue<Square> getBasicMoves(final int[] directions, final int maxDistance) {
-        MultilevelQueue<Square> squares = new MultilevelQueue<>();
+    private MultiLevelQueue<Square> getBasicMoves(final int[] directions, final int maxDistance) {
+        MultiLevelQueue<Square> squares = new MultiLevelQueue<>();
 
         for (int i = 0; i < directions.length; i++) {
             squares.addLevel("basicMoves" + i);
