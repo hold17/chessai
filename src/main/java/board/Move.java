@@ -3,7 +3,6 @@ package board;
 import util.Square;
 
 public class Move {
-
     private final Square startSquare;
     private final Square endSquare;
     private int score;

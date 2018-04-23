@@ -1,6 +1,5 @@
 package board;
 
-
 import util.Color;
 import util.FieldState;
 import util.Square;
@@ -16,7 +15,6 @@ public class Board {
 
     private String lastMove;
 
-
     public boolean gameOver;
 
     public FieldState[] field;
@@ -28,7 +26,7 @@ public class Board {
 //    public fState winner;
     public Board() {
         field = new FieldState[128];
-        initializeBoard();   // HEX 88
+        initializeBoard();   // 0x88
 
     }
 
@@ -37,16 +35,13 @@ public class Board {
      * @return kopi af bræt
      */
     Board getDeepCopy() {
-        Board board             = new Board();
+        Board board = new Board();
         board.field = this.field.clone();
-//        for (int i = 0; i < board.field.length; i++) {
-//            board.field[i] = this.field[i];
-//        }
-        board.player       = this.player;
-        board.winner            = this.winner;
-        board.machine            = this.machine;
-        board.moveCount         = this.moveCount;
-        board.gameOver          = this.gameOver;
+        board.player = this.player;
+        board.winner = this.winner;
+        board.machine = this.machine;
+        board.moveCount = this.moveCount;
+        board.gameOver = this.gameOver;
         board.currentField = this.currentField;
         return board;
     }
@@ -67,6 +62,7 @@ public class Board {
         for (int i = 0; i<field.length; i++) {
             field[i] = FieldState.EMPTY;
         }
+
         field[Square.A1.getValue()] = FieldState.WHITE_ROOK;
         field[(Square.B1.getValue())] = FieldState.WHITE_KNIGHT;
         field[(Square.C1.getValue())] = FieldState.WHITE_BISHOP;
@@ -78,6 +74,7 @@ public class Board {
         for (int i = Square.A2.getValue(); i<Square.A2.getValue()+8; i++) {
             field[i] = FieldState.WHITE_PAWN;
         }
+
         field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
         field[(Square.B8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.C8.getValue())] = FieldState.BLACK_BISHOP;
@@ -105,7 +102,6 @@ public class Board {
         field[to] = piece;
         moveCount++;
         lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
-
         player = player == Color.WHITE ? Color.BLACK : Color.WHITE;   // Skift spiller
 //        currentField = fieldnumber;
     }
@@ -115,6 +111,7 @@ public class Board {
         algorithm.aiPlay(board, 5);
 
     }
+
     public FieldState getFieldState(final Square square) {
         return field[square.getValue()];
     }
@@ -122,6 +119,7 @@ public class Board {
     public void setMachineColor(Color player) {
         this.machine = player;
     }
+
     Color getMachineColor() {
         return this.machine;
     }

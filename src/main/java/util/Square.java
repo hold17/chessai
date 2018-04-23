@@ -71,10 +71,7 @@ public enum Square {
     }
 
     public MultiLevelQueue<Square> getPawnMoves(Color color) {
-        if (color == Color.WHITE)
-            return getWhitePawnMoves();
-        else
-            return getBlackPawnMoves();
+        return color == Color.WHITE ? getWhitePawnMoves() : getBlackPawnMoves();
     }
 
     public MultiLevelQueue<Square> getWhitePawnMoves() {

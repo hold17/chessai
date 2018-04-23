@@ -37,7 +37,7 @@ public class Main {
                     break;
                 case "protover":
                     sc.next();
-                    System.out.println("feature ping=1 done=1");
+                    System.out.println("feature ping=1 myname=\"ShallowTurquoise\" done=1");
                     break;
                 case "ping":
                     System.out.println("pong " + sc.next());

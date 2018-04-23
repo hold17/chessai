@@ -8,8 +8,7 @@ import util.Square;
 import java.util.ArrayList;
 import java.util.List;
 
-
-class Rules {
+public class Rules {
 
     ArrayList<Move> getMoves(final Board gamestate, Square square) {
         ArrayList<Move> moves = new ArrayList<>();
@@ -18,37 +17,32 @@ class Rules {
             case PAWN:
             case WHITE_PAWN:
             case BLACK_PAWN:
-                moves.addAll(getLegalPawnMoves(gamestate, square, gamestate.getFieldState(square).getColor()));
+                moves.addAll(getLegalPawnMoves(gamestate, square, piece.getColor()));
                 break;
             case ROOK:
             case WHITE_ROOK:
             case BLACK_ROOK:
                 moves.addAll(getLegalRookMoves(gamestate, square));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
                 moves.addAll(getLegalKnightMoves(gamestate, square));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case BISHOP:
             case WHITE_BISHOP:
             case BLACK_BISHOP:
                 moves.addAll(getLegalBishopMoves(gamestate, square));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
                 moves.addAll(getLegalQueenMoves(gamestate, square));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KING:
             case WHITE_KING:
             case BLACK_KING:
                 moves.addAll(getLegalKingMoves(gamestate, square));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
 
         }
@@ -130,7 +124,6 @@ class Rules {
         return moves;
     }
 
-
     private List<Move> getLegalPawnMoves(final Board gameState, final Square square, Color color) {
         final List<Move> moves = new ArrayList<>();
         final MultiLevelQueue<Square> squares = square.getPawnMoves(color);
@@ -160,11 +153,7 @@ class Rules {
         }
 
         final FieldState piece = gameState.getFieldState(startSquare);
-        if (piece.getColor() == possiblePiece.getColor()) {
-            return false;
-        }
-
-        return true;
+        return piece.getColor() != possiblePiece.getColor();
     }
 
     private boolean squareIsEmpty(final Board gameState, final Square square) {

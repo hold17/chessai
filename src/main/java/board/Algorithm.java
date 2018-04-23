@@ -7,8 +7,7 @@ import util.Square;
 import java.util.List;
 
 public class Algorithm {
-    public Algorithm() {
-    }
+    public Algorithm() {}
 
     public void aiPlay(Board board, int maxPly) {
         int alpha = Integer.MIN_VALUE;
@@ -18,10 +17,10 @@ public class Algorithm {
 
     private int alphaBetaPruning(Board board, int score, int alpha, int beta, int ply, int maxPly) {
         if (ply++ == maxPly || board.gameOver) {
-            System.out.println(ply + "\t");
+            //System.out.println(ply + "\t" + "156\t" + "1084\t" + "10000\t" + "e5e6\t");
             return score; // fortegn???
         }
-
+        //System.out.println("ply " + ply);
         if (board.player == Color.WHITE) {
             return getMax(board, alpha, beta, ply, maxPly);
         } else {
@@ -35,7 +34,7 @@ public class Algorithm {
 
         for (int i = 0; i < board.field.length; i++) {
             if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())) {
-//                Løb igennem samtlige træk og find det bedste
+                // Løb igennem samtlige træk og find det bedste
                 Rules rules = new Rules();
                 Square startSquare = Square.getSquare(i);
 
@@ -56,7 +55,7 @@ public class Algorithm {
                         indexOfBestPiece = startSquare.getValue();
                         indexOfBestMove = endSquare.getValue();
                     }
-
+                    // Pruning.
                     if (alpha >= beta) break;
                 }
             }
@@ -68,14 +67,13 @@ public class Algorithm {
         return alpha;
     }
 
-    // Fra gamle Kryds og Bolle
     private int getMin(Board board, int alpha, int beta, int ply, int maxPly) {
         int indexOfBestPiece = -1;
         int indexOfBestMove = -1;
 
         for (int i = 0; i < board.field.length; i++) {
             if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())) {
-//                Løb igennem samtlige træk og find det bedste
+                // Løb igennem samtlige træk og find det bedste
                 Rules rules = new Rules();
                 Square startSquare = Square.getSquare(i);
 
