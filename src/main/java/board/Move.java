@@ -19,7 +19,7 @@ public class Move {
     {
         this.startSquare = startSquare;
         this.endSquare = endSquare;
-        this.score = this.score;
+        this.score = score;
     }
 
     public Square getStartSquare()
