@@ -80,6 +80,7 @@ public class Main {
         int pieceIndex = Square.getSquare(moveStr.substring(0,2)).getValue();
         int destinationIndex = Square.getSquare(moveStr.substring(2,4)).getValue();
 //        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
+
         board.move(pieceIndex, destinationIndex);
 
         go(board);
