@@ -1,7 +1,6 @@
-import board.Board;
-import util.Color;
-import util.Square;
 import board.Algorithm;
+import board.Board;
+import util.Square;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -28,7 +27,7 @@ public class Main {
             command = sc.next();
             writer.write(command);
             writer.flush();
-            switch (command){
+            switch (command) {
                 case "quit":
                     System.exit(0);
                     break;
@@ -36,18 +35,12 @@ public class Main {
                     board.initializeBoard();
                     //Nulstil bræt
                     break;
-                case "black":
-                    board.setMachineColor(Color.BLACK);
-                    break;
                 case "protover":
                     sc.next();
                     System.out.println("feature ping=1 done=1");
                     break;
                 case "ping":
                     System.out.println("pong " + sc.next());
-                    break;
-                case "white":
-                    board.setMachineColor(Color.WHITE);
                     break;
                 case "usermove":
                 case "move":
@@ -57,15 +50,21 @@ public class Main {
                     writer.write(moveStr);
                     move(moveStr, board);
                     // Dekod skaknotation for træk til felt indeks
-
                     break;
                 case "go":
                     go(board);
                     break;
-                case "accepted": case "xboard": case "random": case "level": case "post": case "hard": case "time": case "otim": break;
+                case "accepted":
+                case "xboard":
+                case "random":
+                case "level":
+                case "post":
+                case "hard":
+                case "time":
+                case "otim":
+                    break;
                 default:
-//                    System.out.println("#Ukendt kommando: " + command);
-                    if (isAMove(command)) {
+                    if (isMove(command)) {
                         move(command, board);
                     }
             }
@@ -77,9 +76,8 @@ public class Main {
 
     private static void move(String moveStr, Board board) {
         char[] chars = moveStr.toCharArray();
-        int pieceIndex = Square.getSquare(moveStr.substring(0,2)).getValue();
-        int destinationIndex = Square.getSquare(moveStr.substring(2,4)).getValue();
-//        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
+        int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
+        int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
 
         board.move(pieceIndex, destinationIndex);
 
@@ -88,12 +86,12 @@ public class Main {
 
     private static void go(Board board) {
         Algorithm algorithm = new Algorithm();
-        algorithm.aiPlay(board,5);
+        algorithm.aiPlay(board, 5);
         System.out.println("move " + board.getLastMove());
     }
 
 
-    private static boolean isAMove(String message) {
+    private static boolean isMove(String message) {
         final String regex = "[a-h][1-8][a-h][1-8]";
 
         return message.matches(regex);

@@ -106,9 +106,7 @@ public class Board {
         moveCount++;
         lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
 
-        if (player == Color.WHITE) player = Color.BLACK;
-        else player = Color.WHITE;
-//        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
+        player = player == Color.WHITE ? Color.BLACK : Color.WHITE;   // Skift spiller
 //        currentField = fieldnumber;
     }
 

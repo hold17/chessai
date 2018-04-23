@@ -37,6 +37,7 @@ public enum Square {
         final int squareValue = (file + (16 * (rank - 1))) - 1;
         return lookup.get(squareValue);
     }
+
     public static Square getSquare(int index) {
         return lookup.get(index);
     }
@@ -54,19 +55,19 @@ public enum Square {
     }
 
     public MultiLevelQueue<Square> getQueenMoves() {
-        return getBasicMoves(new int[] {-17, -16, -15, -1, 1, 15, 16, 17}, 7);
+        return getBasicMoves(new int[]{-17, -16, -15, -1, 1, 15, 16, 17}, 7);
     }
 
     public MultiLevelQueue<Square> getRookMoves() {
-        return getBasicMoves(new int[] {-1, -16, 1, 16}, 7);
+        return getBasicMoves(new int[]{-1, -16, 1, 16}, 7);
     }
 
     public MultiLevelQueue<Square> getBishopMoves() {
-        return getBasicMoves(new int[] {-17, -15, 15, 17}, 7);
+        return getBasicMoves(new int[]{-17, -15, 15, 17}, 7);
     }
 
     public MultiLevelQueue<Square> getKnightMoves() {
-        return getBasicMoves(new int[] {-33, -31, -18, -14, 14, 18, 31, 33}, 1);
+        return getBasicMoves(new int[]{-33, -31, -18, -14, 14, 18, 31, 33}, 1);
     }
 
     public MultiLevelQueue<Square> getPawnMoves(Color color) {
@@ -77,19 +78,19 @@ public enum Square {
     }
 
     public MultiLevelQueue<Square> getWhitePawnMoves() {
-        int[] directions = new int[] {15, 16, 17};
+        int[] directions = new int[]{15, 16, 17};
 
         if (getRank() == 2) {
-            directions = new int[] {15, 16, 17, 32};
+            directions = new int[]{15, 16, 17, 32};
         }
         return getBasicMoves(directions, 1);
     }
 
     public MultiLevelQueue<Square> getBlackPawnMoves() {
-        int[] directions = new int[] {-16, -15, -17};
+        int[] directions = new int[]{-16, -15, -17};
 
         if (getRank() == 7) {
-            directions = new int[] {-16, -15, -17, -32};
+            directions = new int[]{-16, -15, -17, -32};
         }
 
         return getBasicMoves(directions, 1);
@@ -99,7 +100,7 @@ public enum Square {
      * Calculates a complete queue of all posible moves given a list of directions and a maximum move distance.
      *
      * @param directions  directions the piece can move in
-     * @param maxDistance  maximum move distance of the piece
+     * @param maxDistance maximum move distance of the piece
      * @return Multilevel queue of all valid moves for the specific instructions (of the piece)
      */
     private MultiLevelQueue<Square> getBasicMoves(final int[] directions, final int maxDistance) {
@@ -124,7 +125,7 @@ public enum Square {
     /**
      * Checks whether or not a sqaure is within the boundaries of the board.
      *
-     * @param square  square to check validity of
+     * @param square square to check validity of
      * @return True if the square is within the boundaries of the game board
      */
     public static boolean isValid(final int square) {
@@ -134,13 +135,13 @@ public enum Square {
     /**
      * Checks if this square is at the same diagonal as the square in the parameter.
      *
-     * @param square  the square to check with
+     * @param square the square to check with
      * @return True if the two squares is at the same diagonal
      */
     public boolean sameDiagonal(final Square square) {
         return
                 Math.abs(square.getValue() - value) % 15 == 0 ||
-                Math.abs(square.getValue() - value) % 17 == 0;
+                        Math.abs(square.getValue() - value) % 17 == 0;
     }
 
     /**

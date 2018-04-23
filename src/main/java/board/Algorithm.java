@@ -3,23 +3,26 @@ package board;
 import util.Color;
 import util.FieldState;
 import util.Square;
+
 import java.util.List;
 
 public class Algorithm {
-    public Algorithm() {}
+    public Algorithm() {
+    }
 
     public void aiPlay(Board board, int maxPly) {
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE; // Bruges som uendelig
-        alphaBetaPruning(board,0,alpha,beta,0, maxPly);
+        alphaBetaPruning(board, 0, alpha, beta, 0, maxPly);
     }
 
     private int alphaBetaPruning(Board board, int score, int alpha, int beta, int ply, int maxPly) {
-        if(ply++ == maxPly || board.gameOver) {
+        if (ply++ == maxPly || board.gameOver) {
+            System.out.println(ply + "\t");
             return score; // fortegn???
         }
 
-        if(board.player == Color.WHITE) {
+        if (board.player == Color.WHITE) {
             return getMax(board, alpha, beta, ply, maxPly);
         } else {
             return getMin(board, alpha, beta, ply, maxPly);
@@ -31,7 +34,7 @@ public class Algorithm {
         int indexOfBestMove = -1;
 
         for (int i = 0; i < board.field.length; i++) {
-            if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())){
+            if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())) {
 //                Løb igennem samtlige træk og find det bedste
                 Rules rules = new Rules();
                 Square startSquare = Square.getSquare(i);
@@ -46,7 +49,7 @@ public class Algorithm {
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
-                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply,maxPly);
+                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply, maxPly);
 
                     if (score > alpha) {
                         alpha = score;
@@ -59,18 +62,19 @@ public class Algorithm {
             }
         }
         if (indexOfBestMove != -1) {
-            board.move(indexOfBestPiece,indexOfBestMove);
+            board.move(indexOfBestPiece, indexOfBestMove);
         }
 
         return alpha;
     }
+
     // Fra gamle Kryds og Bolle
     private int getMin(Board board, int alpha, int beta, int ply, int maxPly) {
         int indexOfBestPiece = -1;
         int indexOfBestMove = -1;
 
         for (int i = 0; i < board.field.length; i++) {
-            if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())){
+            if (Square.isValid(i) && (board.getMachineColor() == board.field[i].getColor())) {
 //                Løb igennem samtlige træk og find det bedste
                 Rules rules = new Rules();
                 Square startSquare = Square.getSquare(i);
@@ -85,7 +89,7 @@ public class Algorithm {
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
-                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply,maxPly);
+                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply, maxPly);
 
                     if (score < beta) {
                         beta = score;
@@ -98,13 +102,11 @@ public class Algorithm {
             }
         }
         if (indexOfBestMove != -1) {
-            board.move(indexOfBestPiece,indexOfBestMove);
+            board.move(indexOfBestPiece, indexOfBestMove);
         }
 
         return beta;
     }
-
-
 
 
 }
