@@ -15,11 +15,11 @@ public class Move {
         score = 0;
     }
 
-    public Move(final Square startSquare, final Square endSquare, int Score)
+    public Move(final Square startSquare, final Square endSquare, int score)
     {
         this.startSquare = startSquare;
         this.endSquare = endSquare;
-        this.score = score;
+        this.score = this.score;
     }
 
     public Square getStartSquare()

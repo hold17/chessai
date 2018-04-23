@@ -1,13 +1,6 @@
-xboard
-protover
 new
-random
-level
-post
-hard
-time
-otim
-d2d4
-result
-force
-quit
+move a2a4
+go
+move a4a5
+go
+move

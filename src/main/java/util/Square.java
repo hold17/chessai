@@ -69,7 +69,7 @@ public enum Square {
         return getBasicMoves(new int[] {-33, -31, -18, -14, 14, 18, 31, 33}, 1);
     }
 
-    public MultiLevelQueue<Square> getPawnMoves(final Color color) {
+    public MultiLevelQueue<Square> getPawnMoves(Color color) {
         if (color == Color.WHITE)
             return getWhitePawnMoves();
         else

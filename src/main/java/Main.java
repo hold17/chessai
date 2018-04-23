@@ -53,7 +53,7 @@ public class Main {
                 case "go":
                     Algorithm algorithm = new Algorithm();
                     algorithm.aiPlay(board,5);
-//                    System.out.println(board.getLastMove());
+                    System.out.println(board.getLastMove());
                     break;
                 default:
                     System.out.println("#Ukendt kommando: " + command);
