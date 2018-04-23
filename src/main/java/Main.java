@@ -28,8 +28,8 @@ public class Main {
                     System.exit(0);
                     break;
                 case "new":
-                    System.out.println("debug");
-                    System.out.println("usermove");
+                    System.out.println("debug 1");
+                    System.out.println("usermove 1");
                     board.initializeBoard();
                     //Nulstil bræt
                     break;
