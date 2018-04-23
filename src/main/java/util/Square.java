@@ -127,7 +127,7 @@ public enum Square {
      * @param square  square to check validity of
      * @return True if the square is within the boundaries of the game board
      */
-    private boolean isValid(final int square) {
+    public static boolean isValid(final int square) {
         return (square & 0x88) == 0;
     }
 
