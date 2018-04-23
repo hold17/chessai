@@ -1,7 +1,12 @@
 package util;
 
 // Values that you assign the board for each field, depending on chesspiece.
-// Values are taken from Wikipedias standard evaluation for each chess piece
+// Values are taken from Wikipedia's standard evaluation for each chess piece
+
+/**
+ * A <code>FieldState</code> is the state of a single field on a chess board. Its value is used to determine the value
+ * of a piece on the board. The values are based on Wikipedia's standard evaluation for each chess piece.
+ */
 public enum FieldState {
     EMPTY(0),
     PAWN(1),
