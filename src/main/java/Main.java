@@ -89,7 +89,7 @@ public class Main {
     private static void go(Board board) {
         Algorithm algorithm = new Algorithm();
         algorithm.aiPlay(board,5);
-        System.out.println("move" + board.getLastMove());
+        System.out.println("move " + board.getLastMove());
     }
 
 
