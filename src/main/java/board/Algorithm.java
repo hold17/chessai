@@ -43,9 +43,9 @@ public class Algorithm {
 
                 List<Move> moveList = rules.getMoves(board, startSquare);
 
-                for (int j = 0; j < moveList.size(); j++) {
-                    Square endSquare = moveList.get(j).getEndSquare();
-                    int score = moveList.get(j).getScore();
+                for (Move aMoveList : moveList) {
+                    Square endSquare = aMoveList.getEndSquare();
+                    int score = aMoveList.getScore();
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
@@ -83,9 +83,9 @@ public class Algorithm {
 
                 List<Move> moveList = rules.getMoves(board, startSquare);
 
-                for (int j = 0; j < moveList.size(); j++) {
-                    Square endSquare = moveList.get(j).getEndSquare();
-                    int score = -moveList.get(j).getScore();
+                for (Move aMoveList : moveList) {
+                    Square endSquare = aMoveList.getEndSquare();
+                    int score = -aMoveList.getScore();
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
