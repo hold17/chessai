@@ -1,6 +1,2 @@
-new
-move a2a4
-go
-move a4a5
-go
-move
+h2h3
+quit

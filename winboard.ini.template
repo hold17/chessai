@@ -5,7 +5,7 @@
 ; but if you add other options, the next Save Settings will not save them.
 ; Use a shortcut, an @indirection file, or a .bat file instead.
 ;
-/saveDate=1524429501
+/saveDate=1524503287
 /whitePieceColor=#ffffcc
 /blackPieceColor=#202020
 /lightSquareColor=#c8c365
@@ -274,7 +274,7 @@ chess.mds.mdh.se /icsport=5000
 /firstChessProgramNames={fmax /fd=Fairy-Max
 GNUChess
 "GNUChes5 xboard"
-"java -jar chessai-java.jar" -fd "C:\Users\Justin\IdeaProjects\chessai-java\out\artifacts\chessai_java_jar"
+"java -jar chessai-java.jar" -fd "C:\Users\awo\IdeaProjects\chessai-java\out\artifacts\chessai_java_jar"
 }
 /secondChessProgramNames={fmax /sd=Fairy-Max
 GNUChess
@@ -361,36 +361,36 @@ GNUChess
 /keepLineBreaksICS=false
 /winWidth=897
 /winHeight=996
-/x=427
-/y=54
-/icsX=2147483221
-/icsY=2147483594
-/icsW=-2147483648
-/icsH=-2147483648
-/commentX=2147483221
-/commentY=2147483594
+/x=294
+/y=175
+/icsX=897
+/icsY=63
+/icsW=959
+/icsH=747
+/commentX=2147483354
+/commentY=2147483473
 /commentW=-2147483648
 /commentH=-2147483648
-/tagsX=-410
-/tagsY=26
+/tagsX=-277
+/tagsY=-95
 /tagsW=351
 /tagsH=267
-/gameListX=2147483221
-/gameListY=2147483594
+/gameListX=2147483354
+/gameListY=2147483473
 /gameListW=-2147483648
 /gameListH=-2147483648
-/moveHistoryUp=false
-/moveHistoryX=-205
-/moveHistoryY=315
+/moveHistoryUp=true
+/moveHistoryX=897
+/moveHistoryY=4
 /moveHistoryW=354
 /moveHistoryH=250
 /evalGraphUp=false
-/evalGraphX=-216
-/evalGraphY=548
+/evalGraphX=-340
+/evalGraphY=421
 /evalGraphW=340
 /evalGraphH=161
 /engineOutputUp=false
-/engineOutputX=617
-/engineOutputY=262
+/engineOutputX=897
+/engineOutputY=256
 /engineOutputW=415
 /engineOutputH=310
