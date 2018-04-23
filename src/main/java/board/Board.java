@@ -10,7 +10,7 @@ public class Board {
     Color player; //Aktuel spiller
     Color winner; // Vinder
     Color machine; // AI
-    private Color Startingplayer;
+    private Color startingPlayer;
     private long maxMoveTime;
     private long currentMoveStartTime;
 
@@ -60,7 +60,7 @@ public class Board {
         moveCount = 0;
         winner = Color.NULL; // Ingen vinder ved start af spillet
         currentField = -1;
-        Startingplayer = Color.WHITE;
+        startingPlayer = Color.WHITE;
         machine = Color.BLACK;
         player = Color.WHITE;
 

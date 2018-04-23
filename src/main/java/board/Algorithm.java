@@ -40,13 +40,13 @@ public class Algorithm {
 
                 List<Move> moveList = rules.getMoves(board, startSquare);
 
-                for (int j = 0; j < moveList.size(); j++) {
-                    Square endSquare = moveList.get(j).getEndSquare();
-                    int score = moveList.get(j).getScore();
+                for (Move aMoveList : moveList) {
+                    Square endSquare = aMoveList.getEndSquare();
+                    int score = aMoveList.getScore();
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
-                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply,maxPly);
+                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply, maxPly);
 
                     if (score > alpha) {
                         alpha = score;
@@ -79,13 +79,13 @@ public class Algorithm {
 
                 List<Move> moveList = rules.getMoves(board, startSquare);
 
-                for (int j = 0; j < moveList.size(); j++) {
-                    Square endSquare = moveList.get(j).getEndSquare();
-                    int score = -moveList.get(j).getScore();
+                for (Move aMoveList : moveList) {
+                    Square endSquare = aMoveList.getEndSquare();
+                    int score = -aMoveList.getScore();
                     Board modifiedBoard = board.getDeepCopy();
 
                     modifiedBoard.move(startSquare.getValue(), endSquare.getValue());
-                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply,maxPly);
+                    score = alphaBetaPruning(modifiedBoard, score, alpha, beta, ply, maxPly);
 
                     if (score < beta) {
                         beta = score;
