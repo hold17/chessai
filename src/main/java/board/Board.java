@@ -62,6 +62,7 @@ public class Board {
         currentField = -1;
         Startingplayer = Color.WHITE;
         machine = Color.BLACK;
+        player = Color.WHITE;
 
         for (int i = 0; i<field.length; i++) {
             field[i] = FieldState.EMPTY;
@@ -103,7 +104,10 @@ public class Board {
         field[from] = fState.EMPTY;
         field[to] = piece;
         moveCount++;
-        lastMove = " "+ Square.getSquare(from)+Square.getSquare(to);
+        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
+
+        if (player == Color.WHITE) player = Color.BLACK;
+        else player = Color.WHITE;
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
 //        currentField = fieldnumber;
     }
