@@ -49,7 +49,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     final Board childBoard = new Board(board);
 
                     childBoard.move(legalMove);
-                    score = prune(childBoard, score, alpha, beta, ply);
+                    score += prune(childBoard, score, alpha, beta, ply);
 
                     if (score < beta) {
                         beta = score;
@@ -85,7 +85,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     final Board childBoard = new Board(board);
 
                     childBoard.move(legalMove);
-                    score = prune(childBoard, score, alpha, beta, ply);
+                    score += prune(childBoard, score, alpha, beta, ply);
 
                     if (score > alpha) {
                         alpha = score;

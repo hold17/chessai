@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="chessai-java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/chessai_java_jar</output-path>
+    <root id="archive" name="chessai-java.jar">
+      <element id="module-output" name="main" />
+      <element id="module-output" name="chessai" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/beust/jcommander/1.72/jcommander-1.72.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar" path-in-jar="/" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="library" level="project" name="Maven: com.beust:jcommander:1.72" />
+      <element id="library" level="project" name="Maven: org.apache-extras.beanshell:bsh:2.0b6" />
+      <element id="library" level="project" name="Maven: org.testng:testng:6.14.3" />
+    </root>
+  </artifact>
+</component>
