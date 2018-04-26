@@ -1,8 +1,5 @@
 package util;
 
-// Values that you assign the board for each field, depending on chesspiece.
-// Values are taken from Wikipedia's standard evaluation for each chess piece
-
 /**
  * A <code>FieldState</code> is the state of a single field on a chess board. Its value is used to determine the value
  * of a piece on the board. The values are based on Wikipedia's standard evaluation for each chess piece.
@@ -30,61 +27,50 @@ public enum FieldState {
 
     private int value;
 
-    FieldState(final int value)
-    {
+    FieldState(final int value) {
         this.value = value;
     }
 
-    public int getValue()
-    {
+    public int getValue() {
         return value;
     }
 
-    public Color getColor()
-    {
+    public Color getColor() {
         Color fieldColor = Color.NULL;
-        if(isWhite()) fieldColor = Color.WHITE;
-        else if(isBlack()) fieldColor = Color.BLACK;
+        if (isWhite()) fieldColor = Color.WHITE;
+        else if (isBlack()) fieldColor = Color.BLACK;
         return fieldColor;
     }
 
-    public boolean isWhite()
-    {
+    public boolean isWhite() {
         return value > 0;
     }
 
-    public boolean isBlack()
-    {
+    public boolean isBlack() {
         return value < 0;
     }
 
-    public boolean isKing()
-    {
+    public boolean isKing() {
         return Math.abs(value) == KING.getValue();
     }
 
-    public boolean isQueen()
-    {
+    public boolean isQueen() {
         return Math.abs(value) == QUEEN.getValue();
     }
 
-    public boolean isRook()
-    {
+    public boolean isRook() {
         return Math.abs(value) == ROOK.getValue();
     }
 
-    public boolean isBishop()
-    {
+    public boolean isBishop() {
         return Math.abs(value) == BISHOP.getValue();
     }
 
-    public boolean isKnight()
-    {
+    public boolean isKnight() {
         return Math.abs(value) == KNIGHT.getValue();
     }
 
-    public boolean isPawn()
-    {
+    public boolean isPawn() {
         return Math.abs(value) == PAWN.getValue();
     }
 
