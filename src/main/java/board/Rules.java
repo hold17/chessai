@@ -146,7 +146,7 @@ public class Rules {
                 if (validPawnCapture(gameState, square, newSquare)) {
                     int score =  getScoreValueAtMoveEnd(gameState,newSquare);
 //                    moves.add(new Move(square, newSquare,score));
-                    moves.add(new Move(square, newSquare,-1000));
+                    moves.add(new Move(square, newSquare,1000));
                 }
             } else {
                 if (canAdvance && squareIsEmpty(gameState, newSquare)) {
