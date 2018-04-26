@@ -22,34 +22,46 @@ public class Board {
     public FieldState[] field;
     //    public fState player;
     private int currentField;
-    FieldState fState;
+//    FieldState fState;
 
 
 //    public fState winner;
     public Board() {
         field = new FieldState[128];
         initializeBoard();   // HEX 88
+    }
 
+    public Board(Board board) {
+//        board.field = this.field.clone();
+//        board.player = this.player;
+//        board.winner = this.winner;
+//        board.machine = this.machine;
+//        board.moveCount = this.moveCount;
+//        board.gameOver = this.gameOver;
+//        board.currentField = this.currentField;
+
+        this.field = board.field.clone();
+        this.player = board.player;
+        this.winner = board.winner;
+        this.machine = board.machine;
+        this.moveCount = board.moveCount;
+        this.gameOver = board.gameOver;
+        this.currentField = board.currentField;
+        this.startingPlayer = board.startingPlayer;
+        this.lastMove = board.lastMove;
+        this.maxMoveTime = board.maxMoveTime;
+        this.currentMoveStartTime = board.currentMoveStartTime;
     }
 
     /**
      * Kopierer brættet til alpha-beta
      * @return kopi af bræt
      */
-    Board getDeepCopy() {
-        Board board             = new Board();
-        board.field = this.field.clone();
-//        for (int i = 0; i < board.field.length; i++) {
-//            board.field[i] = this.field[i];
-//        }
-        board.player       = this.player;
-        board.winner            = this.winner;
-        board.machine            = this.machine;
-        board.moveCount         = this.moveCount;
-        board.gameOver          = this.gameOver;
-        board.currentField = this.currentField;
-        return board;
-    }
+//    Board getDeepCopy() {
+//        Board board             = new Board();
+//
+//        return board;
+//    }
 
     boolean isGameOver() {
         return gameOver;
@@ -101,7 +113,7 @@ public class Board {
     public void move (int from, int to) {
         FieldState piece = field[from];
         // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
-        field[from] = fState.EMPTY;
+        field[from] = FieldState.EMPTY;
         field[to] = piece;
         moveCount++;
         lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
@@ -112,9 +124,13 @@ public class Board {
 //        currentField = fieldnumber;
     }
 
-    public void go(Board board, Algorithm algorithm) {
+    public void move(Move move) {
+        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
+    }
+
+    public void go(Board board, MoveAlgorithm moveAlgorithm) {
         currentMoveStartTime = System.currentTimeMillis()/1000;
-        algorithm.aiPlay(board, 5);
+        moveAlgorithm.aiPlay(board);
 
     }
     public FieldState getFieldState(final Square square) {
@@ -124,9 +140,11 @@ public class Board {
     public void setMachineColor(Color player) {
         this.machine = player;
     }
-    Color getMachineColor() {
+    public Color getMachineColor() {
         return this.machine;
     }
+    public Color getPlayerColor() { return this.startingPlayer; }
+    public Color getCurrentPlayerColor() { return this.player; }
 
     public String getLastMove() {
         return lastMove;

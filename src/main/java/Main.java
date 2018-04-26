@@ -1,10 +1,12 @@
-import board.Board;
+import board.*;
 import util.Color;
+import util.FieldState;
 import util.Square;
-import board.Algorithm;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -59,6 +61,8 @@ public class Main {
                     // Dekod skaknotation for træk til felt indeks
 
                     break;
+                case "help":
+                    help(board); break;
                 case "go":
                     go(board);
                     break;
@@ -75,6 +79,23 @@ public class Main {
         }
     }
 
+    private static void help(Board board) {
+        List<List<Move>> allPossibleMoves = new ArrayList<>();
+
+        for (int i = board.field.length; i > 0; i--) {
+            if (Square.isValid(i) && (board.getPlayerColor() == board.field[i].getColor())) {
+                final Rules rules = new Rules();
+                final Square startSquare = Square.getSquare(i);
+
+                if (board.getFieldState(startSquare) == FieldState.EMPTY) continue;
+
+                allPossibleMoves.add(rules.getLegalMoves(board, startSquare));
+            }
+        }
+
+        System.out.println("#" + allPossibleMoves);
+    }
+
     private static void move(String moveStr, Board board) {
         char[] chars = moveStr.toCharArray();
         int pieceIndex = Square.getSquare(moveStr.substring(0,2)).getValue();
@@ -87,8 +108,9 @@ public class Main {
     }
 
     private static void go(Board board) {
-        Algorithm algorithm = new Algorithm();
-        algorithm.aiPlay(board,5);
+//        help(board);
+        MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(5);
+        alphaBetaAlgorithm.aiPlay(board);
         System.out.println("move " + board.getLastMove());
     }
 

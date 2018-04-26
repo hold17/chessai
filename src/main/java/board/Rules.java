@@ -9,11 +9,11 @@ import java.util.List;
 import util.MultiLevelQueue;
 
 
-class Rules {
+public class Rules {
+    public List<Move> getLegalMoves(final Board gamestate, Square square) {
+        final List<Move> moves = new ArrayList<>();
+        final FieldState piece = gamestate.getFieldState(square);
 
-    ArrayList<Move> getMoves(final Board gamestate, Square square) {
-        ArrayList<Move> moves = new ArrayList<>();
-        FieldState piece = gamestate.getFieldState(square);
         switch (piece) {
             case PAWN:
             case WHITE_PAWN:
@@ -50,10 +50,9 @@ class Rules {
                 moves.addAll(getLegalKingMoves(gamestate, square));
 //                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
-
         }
-        return moves;
 
+        return moves;
     }
 
     private List<Move> getLegalKingMoves(final Board gameState, final Square square)
@@ -146,7 +145,8 @@ class Rules {
             if (square.sameDiagonal(newSquare)) {
                 if (validPawnCapture(gameState, square, newSquare)) {
                     int score =  getScoreValueAtMoveEnd(gameState,newSquare);
-                    moves.add(new Move(square, newSquare,score));
+//                    moves.add(new Move(square, newSquare,score));
+                    moves.add(new Move(square, newSquare,-1000));
                 }
             } else {
                 if (canAdvance && squareIsEmpty(gameState, newSquare)) {
@@ -179,7 +179,7 @@ class Rules {
 
     private int getScoreValueAtMoveEnd(final Board gameState, final Square square) {
         int value = gameState.getFieldState(square).getValue();
-        return (value > 0) ? value: -value;
+        return (value > 0) ? value : -value;
 
     }
 

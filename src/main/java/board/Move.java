@@ -22,6 +22,10 @@ public class Move {
         this.score = score;
     }
 
+    public Move(final Square startSquare, final Square endSquare) {
+        this(startSquare, endSquare, 0);
+    }
+
     public Square getStartSquare()
     {
         return startSquare;
