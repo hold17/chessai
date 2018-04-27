@@ -21,40 +21,39 @@ public class Rules {
         kingrules = new KingRules();
     }
 
-    public List<Move> getLegalMoves(final Board gamestate, Square square, Color piececolor) {
+    public List<Move> getLegalMoves(final Board gamestate, final Square currentSquare, final Color piececolor) {
         final List<Move> moves = new ArrayList<>();
-        final FieldState piece = gamestate.getFieldState(square);
-        final Color color = gamestate.getFieldState(square).getColor();
+        final FieldState piece = gamestate.getFieldState(currentSquare);
         switch (piece) {
             case PAWN:
             case WHITE_PAWN:
             case BLACK_PAWN:
-                moves.addAll(pawnrules.getLegalMoves(gamestate, square, color));
+                moves.addAll(pawnrules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
             case ROOK:
             case WHITE_ROOK:
             case BLACK_ROOK:
-                moves.addAll(rookrules.getLegalMoves(gamestate, square, color));
+                moves.addAll(rookrules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
             case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
-                moves.addAll(knightrules.getLegalMoves(gamestate, square, color));
+                moves.addAll(knightrules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
             case BISHOP:
             case WHITE_BISHOP:
             case BLACK_BISHOP:
-                moves.addAll(bishoprules.getLegalMoves(gamestate, square, color));
+                moves.addAll(bishoprules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
             case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
-                moves.addAll(queenrules.getLegalMoves(gamestate, square, color));
+                moves.addAll(queenrules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
             case KING:
             case WHITE_KING:
             case BLACK_KING:
-                moves.addAll(kingrules.getLegalMoves(gamestate, square, color));
+                moves.addAll(kingrules.getLegalMoves(gamestate, currentSquare, piececolor));
                 break;
         }
 

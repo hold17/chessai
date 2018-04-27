@@ -15,7 +15,7 @@ public class KingRules extends CommonRules {
      * when the king is threatened, all moves that blocks/eliminates a checkmate
      * or a king move that brings the king out of a (potential?) checkmate
      * gets max priority. If king moves, should it be a method that checks if the new position
-     * brings it in danger or should it be an decided by the algorithm that the move is bad
+     * brings it in danger or should it be decided by the algorithm that the move is bad
      * purely by way of it getting a low score because the king will be checked?
      */
 

@@ -15,15 +15,15 @@ public abstract class CommonRules {
         return gameState.getFieldState(square) == FieldState.EMPTY;
     }
 
-    int getScoreValueAtMoveEnd(final Board gameState, final Square square) {
-        final int value = gameState.getFieldState(square).getValue();
-        return (value > 0) ? value : -value;
-    }
-
     boolean sameColorOnBothSquares(final Board gameState, final Square square1, final Square square2) {
         final Color color1 = gameState.getFieldState(square1).getColor();
         final Color color2 = gameState.getFieldState(square2).getColor();
         return (color1 == color2);
+    }
+
+    int getScoreValueAtMoveEnd(final Board gameState, final Square square) {
+        final int value = gameState.getFieldState(square).getValue();
+        return (value > 0) ? value : -value;
     }
 
 /*    private boolean allMovesPutKingInCheck(final Board gameState, final Square square, final Color piececolor) {
