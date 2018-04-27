@@ -26,20 +26,6 @@ public abstract class CommonRules {
         return (color1 == color2);
     }
 
-/*    boolean canCapture(final Board gameState, final Square startSquare, final Square captureSquare) {
-        final FieldState possiblePiece = gameState.getFieldState(captureSquare);
-        if (possiblePiece == FieldState.EMPTY) {
-            return false;
-        }
-
-        final FieldState piece = gameState.getFieldState(startSquare);
-        if (piece.getColor() == possiblePiece.getColor()) {
-            return false;
-        }
-
-        return true;
-    }*/
-
 /*    private boolean allMovesPutKingInCheck(final Board gameState, final Square square, final Color piececolor) {
         final List<Move> moves = getLegalMoves(gameState, square, piececolor);
         for (final Move m : moves) {

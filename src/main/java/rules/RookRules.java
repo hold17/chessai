@@ -28,8 +28,4 @@ public class RookRules extends CommonRules {
         return moves;
     }
 
-/*    private boolean validRookCapture(final Board gamestate, final Square startSquare, final Square captureSquare) {
-        final FieldState possiblePiece = gamestate.getFieldState(captureSquare);
-        return false;
-    }*/
 }

@@ -35,31 +35,26 @@ public class Rules {
             case WHITE_ROOK:
             case BLACK_ROOK:
                 moves.addAll(rookrules.getLegalMoves(gamestate, square, color));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
                 moves.addAll(knightrules.getLegalMoves(gamestate, square, color));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case BISHOP:
             case WHITE_BISHOP:
             case BLACK_BISHOP:
                 moves.addAll(bishoprules.getLegalMoves(gamestate, square, color));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
                 moves.addAll(queenrules.getLegalMoves(gamestate, square, color));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KING:
             case WHITE_KING:
             case BLACK_KING:
                 moves.addAll(kingrules.getLegalMoves(gamestate, square, color));
-//                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
         }
 

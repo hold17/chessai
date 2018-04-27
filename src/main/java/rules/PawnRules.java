@@ -31,23 +31,7 @@ public class PawnRules extends CommonRules {
                 moves.add(new Move(currentSquare, newSquare, score));
             }
         }
-/*        while (squares.size() > 0) {
-            final Square newSquare = squares.next();
-            if (square.sameDiagonal(newSquare)) {
-                if (validPawnCapture(gameState, square, newSquare)) {
-                    score =  getScoreValueAtMoveEnd(gameState,newSquare);
-//                    moves.add(new Move(square, newSquare,score));
-                    moves.add(new Move(square, newSquare,score));
-                }
-            } else {
-                if (canAdvance && squareIsEmpty(gameState, newSquare)) {
-                    if(newSquare.isEndSquare()) score =+20;
-                    moves.add(new Move(square, newSquare,score)); // Mangler identificering af Skak
-                } else {
-                    canAdvance = false;
-                }
-            }
-        }*/
+
         return moves;
     }
 
