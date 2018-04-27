@@ -154,3 +154,7 @@ buildNumber.properties
 ######################
 
 dbsettings.properties
+
+winboard.debug
+winboard.ini
+log.txt

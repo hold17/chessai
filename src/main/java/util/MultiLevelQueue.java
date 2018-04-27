@@ -10,20 +10,20 @@ import java.util.TreeMap;
  *
  * @param <E>
  */
-public class MultilevelQueue<E> {
+public class MultiLevelQueue<E> {
     private int size;
     final private TreeMap<String, Queue<E>> levels;
 
-    public MultilevelQueue() {
+    public MultiLevelQueue() {
         levels = new TreeMap<>();
     }
 
     /**
      * Adds a new level with an empty queue.
      *
-     * @param levelName  The name to be used as the level key, cannot be null
-     * @throws NullPointerException  if levelName is null
-     * @throws DuplicateLevelException  if levelName is not unique
+     * @param levelName The name to be used as the level key, cannot be null
+     * @throws NullPointerException    if levelName is null
+     * @throws DuplicateLevelException if levelName is not unique
      */
     public void addLevel(final String levelName) {
         if (levelName == null) throw new NullPointerException("Level name cannot be null.");
@@ -48,8 +48,8 @@ public class MultilevelQueue<E> {
     /**
      * Get the current level.
      *
-     * @throws LevelNotFoundException  if no levels exist
      * @return Queue at the current level
+     * @throws LevelNotFoundException if no levels exist
      */
     private Queue<E> getHeadLevel() {
         final Map.Entry<String, Queue<E>> firstEntry = levels.firstEntry();
@@ -62,11 +62,10 @@ public class MultilevelQueue<E> {
     /**
      * Adds an object to the queue at the current level.
      *
-     * @param obj  Element to be added
-     * @throws LevelNotFoundException  if no levels exist
+     * @param obj Element to be added
+     * @throws LevelNotFoundException if no levels exist
      */
-    public void add(final E obj)
-    {
+    public void add(final E obj) {
         final Queue<E> level = getTailLevel();
         level.add(obj);
         size++;
@@ -75,8 +74,8 @@ public class MultilevelQueue<E> {
     /**
      * Finds the last queue.
      *
-     * @throws LevelNotFoundException  if no levels exist
      * @return The last queue
+     * @throws LevelNotFoundException if no levels exist
      */
     private Queue<E> getTailLevel() {
         final Map.Entry<String, Queue<E>> lastEntry = levels.lastEntry();

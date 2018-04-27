@@ -1,0 +1,155 @@
+package board;
+
+
+import util.Color;
+import util.FieldState;
+import util.Square;
+
+public class Board {
+    private int moveCount;
+    Color player; //Aktuel spiller
+    Color winner; // Vinder
+    Color machine; // AI
+    private Color startingPlayer;
+    private long maxMoveTime;
+    private long currentMoveStartTime;
+
+    private String lastMove;
+
+
+    public boolean gameOver;
+
+    public FieldState[] field;
+    //    public fState player;
+    private int currentField;
+//    FieldState fState;
+
+
+//    public fState winner;
+    public Board() {
+        field = new FieldState[128];
+        initializeBoard();   // HEX 88
+    }
+
+    public Board(Board board) {
+//        board.field = this.field.clone();
+//        board.player = this.player;
+//        board.winner = this.winner;
+//        board.machine = this.machine;
+//        board.moveCount = this.moveCount;
+//        board.gameOver = this.gameOver;
+//        board.currentField = this.currentField;
+
+        this.field = board.field.clone();
+        this.player = board.player;
+        this.winner = board.winner;
+        this.machine = board.machine;
+        this.moveCount = board.moveCount;
+        this.gameOver = board.gameOver;
+        this.currentField = board.currentField;
+        this.startingPlayer = board.startingPlayer;
+        this.lastMove = board.lastMove;
+        this.maxMoveTime = board.maxMoveTime;
+        this.currentMoveStartTime = board.currentMoveStartTime;
+    }
+
+    /**
+     * Kopierer brættet til alpha-beta
+     * @return kopi af bræt
+     */
+//    Board getDeepCopy() {
+//        Board board             = new Board();
+//
+//        return board;
+//    }
+
+    boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void initializeBoard() {
+        gameOver = false;
+        moveCount = 0;
+        winner = Color.NULL; // Ingen vinder ved start af spillet
+        currentField = -1;
+        startingPlayer = Color.WHITE;
+        machine = Color.BLACK;
+        player = Color.WHITE;
+
+        for (int i = 0; i<field.length; i++) {
+            field[i] = FieldState.EMPTY;
+        }
+        field[Square.A1.getValue()] = FieldState.WHITE_ROOK;
+        field[(Square.B1.getValue())] = FieldState.WHITE_KNIGHT;
+        field[(Square.C1.getValue())] = FieldState.WHITE_BISHOP;
+        field[(Square.D1.getValue())] = FieldState.WHITE_QUEEN;
+        field[(Square.E1.getValue())] = FieldState.WHITE_KING;
+        field[(Square.F1.getValue())] = FieldState.WHITE_BISHOP;
+        field[(Square.G1.getValue())] = FieldState.WHITE_KNIGHT;
+        field[(Square.H1.getValue())] = FieldState.WHITE_ROOK;
+        for (int i = Square.A2.getValue(); i<Square.A2.getValue()+8; i++) {
+            field[i] = FieldState.WHITE_PAWN;
+        }
+        field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
+        field[(Square.B8.getValue())] = FieldState.BLACK_KNIGHT;
+        field[(Square.C8.getValue())] = FieldState.BLACK_BISHOP;
+        field[(Square.D8.getValue())] = FieldState.BLACK_KING;
+        field[(Square.E8.getValue())] = FieldState.BLACK_QUEEN;
+        field[(Square.F8.getValue())] = FieldState.BLACK_BISHOP;
+        field[(Square.G8.getValue())] = FieldState.BLACK_KNIGHT;
+        field[(Square.H8.getValue())] = FieldState.BLACK_ROOK;
+        for (int i = Square.A7.getValue(); i<Square.A7.getValue()+8; i++) {
+            field[i] = FieldState.BLACK_PAWN;
+        }
+
+    }
+
+    /**
+     * Tager kommandoer direkte fra konsollen, hvor der skal skrives i Winboard format, derfor skal strengen behandles
+     * @param from
+     * @param to
+     * @return
+     */
+    public void move (int from, int to) {
+        FieldState piece = field[from];
+        // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
+        field[from] = FieldState.EMPTY;
+        field[to] = piece;
+        moveCount++;
+        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
+
+        if (player == Color.WHITE) player = Color.BLACK;
+        else player = Color.WHITE;
+//        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
+//        currentField = fieldnumber;
+    }
+
+    public void move(Move move) {
+        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
+    }
+
+    public void go(Board board, MoveAlgorithm moveAlgorithm) {
+        currentMoveStartTime = System.currentTimeMillis()/1000;
+        moveAlgorithm.aiPlay(board);
+
+    }
+    public FieldState getFieldState(final Square square) {
+        return field[square.getValue()];
+    }
+
+    public void setMachineColor(Color player) {
+        this.machine = player;
+    }
+    public Color getMachineColor() {
+        return this.machine;
+    }
+    public Color getPlayerColor() { return this.startingPlayer; }
+    public Color getCurrentPlayerColor() { return this.player; }
+
+    public String getLastMove() {
+        return lastMove;
+    }
+
+
+
+}

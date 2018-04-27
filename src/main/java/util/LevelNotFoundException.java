@@ -1,3 +1,3 @@
 package util;
 
-public class LevelNotFoundException extends RuntimeException { }
+public class LevelNotFoundException extends RuntimeException {}

@@ -38,6 +38,10 @@ public enum Square {
         return lookup.get(squareValue);
     }
 
+    public static Square getSquare(int index) {
+        return lookup.get(index);
+    }
+
     Square(final int value) {
         this.value = value;
     }
@@ -46,47 +50,47 @@ public enum Square {
         return value;
     }
 
-    public MultilevelQueue<Square> getKingMoves() {
+    public MultiLevelQueue<Square> getKingMoves() {
         return getBasicMoves(new int[]{-17, -16, -15, -1, 1, 15, 16, 17}, 1);
     }
 
-    public MultilevelQueue<Square> getQueenMoves() {
-        return getBasicMoves(new int[] {-17, -16, -15, -1, 1, 15, 16, 17}, 7);
+    public MultiLevelQueue<Square> getQueenMoves() {
+        return getBasicMoves(new int[]{-17, -16, -15, -1, 1, 15, 16, 17}, 7);
     }
 
-    public MultilevelQueue<Square> getRookMoves() {
-        return getBasicMoves(new int[] {-1, -16, 1, 16}, 7);
+    public MultiLevelQueue<Square> getRookMoves() {
+        return getBasicMoves(new int[]{-1, -16, 1, 16}, 7);
     }
 
-    public MultilevelQueue<Square> getBishopMoves() {
-        return getBasicMoves(new int[] {-17, -15, 15, 17}, 7);
+    public MultiLevelQueue<Square> getBishopMoves() {
+        return getBasicMoves(new int[]{-17, -15, 15, 17}, 7);
     }
 
-    public MultilevelQueue<Square> getKnightMoves() {
-        return getBasicMoves(new int[] {-33, -31, -18, -14, 14, 18, 31, 33}, 1);
+    public MultiLevelQueue<Square> getKnightMoves() {
+        return getBasicMoves(new int[]{-33, -31, -18, -14, 14, 18, 31, 33}, 1);
     }
 
-    public MultilevelQueue<Square> getPawnMoves(final Color color) {
-        if (color == Color.WHITE)
-            return getWhitePawnMoves();
-        else
-            return getBlackPawnMoves();
+    public MultiLevelQueue<Square> getPawnMoves(Color color) {
+        return color == Color.WHITE ? getWhitePawnMoves() : getBlackPawnMoves();
     }
 
-    public MultilevelQueue<Square> getWhitePawnMoves() {
-        int[] directions = new int[] {15, 16, 17};
+    public MultiLevelQueue<Square> getWhitePawnMoves() {
+        int[] directions = new int[]{15, 16, 17};
 
+        // check whether pawn is still in start position
         if (getRank() == 2) {
-            directions = new int[] {15, 16, 17, 32};
+            directions = new int[]{15, 16, 17, 32};
         }
+
         return getBasicMoves(directions, 1);
     }
 
-    public MultilevelQueue<Square> getBlackPawnMoves() {
-        int[] directions = new int[] {-16, -15, -17};
+    public MultiLevelQueue<Square> getBlackPawnMoves() {
+        int[] directions = new int[]{-16, -15, -17};
 
+        // check whether pawn is still in start position
         if (getRank() == 7) {
-            directions = new int[] {-16, -15, -17, -32};
+            directions = new int[]{-16, -15, -17, -32};
         }
 
         return getBasicMoves(directions, 1);
@@ -96,11 +100,11 @@ public enum Square {
      * Calculates a complete queue of all posible moves given a list of directions and a maximum move distance.
      *
      * @param directions  directions the piece can move in
-     * @param maxDistance  maximum move distance of the piece
+     * @param maxDistance maximum move distance of the piece
      * @return Multilevel queue of all valid moves for the specific instructions (of the piece)
      */
-    private MultilevelQueue<Square> getBasicMoves(final int[] directions, final int maxDistance) {
-        MultilevelQueue<Square> squares = new MultilevelQueue<>();
+    private MultiLevelQueue<Square> getBasicMoves(final int[] directions, final int maxDistance) {
+        MultiLevelQueue<Square> squares = new MultiLevelQueue<>();
 
         for (int i = 0; i < directions.length; i++) {
             squares.addLevel("basicMoves" + i);
@@ -121,23 +125,23 @@ public enum Square {
     /**
      * Checks whether or not a sqaure is within the boundaries of the board.
      *
-     * @param square  square to check validity of
+     * @param square square to check validity of
      * @return True if the square is within the boundaries of the game board
      */
-    private boolean isValid(final int square) {
+    public static boolean isValid(final int square) {
         return (square & 0x88) == 0;
     }
 
     /**
      * Checks if this square is at the same diagonal as the square in the parameter.
      *
-     * @param square  the square to check with
+     * @param square the square to check with
      * @return True if the two squares is at the same diagonal
      */
     public boolean sameDiagonal(final Square square) {
         return
                 Math.abs(square.getValue() - value) % 15 == 0 ||
-                Math.abs(square.getValue() - value) % 17 == 0;
+                        Math.abs(square.getValue() - value) % 17 == 0;
     }
 
     /**
