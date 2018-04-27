@@ -77,15 +77,18 @@ public enum Square {
     public MultiLevelQueue<Square> getWhitePawnMoves() {
         int[] directions = new int[]{15, 16, 17};
 
+        // check whether pawn is still in start position
         if (getRank() == 2) {
             directions = new int[]{15, 16, 17, 32};
         }
+
         return getBasicMoves(directions, 1);
     }
 
     public MultiLevelQueue<Square> getBlackPawnMoves() {
         int[] directions = new int[]{-16, -15, -17};
 
+        // check whether pawn is still in start position
         if (getRank() == 7) {
             directions = new int[]{-16, -15, -17, -32};
         }
