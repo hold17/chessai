@@ -18,8 +18,7 @@ public class PawnRules extends CommonRules {
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare) && currentSquare.sameDiagonal(newSquare))
                     moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
-                else
-                    possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
             } else {
                 // don't move to empty diagonal square
                 if (currentSquare.sameDiagonal(newSquare))

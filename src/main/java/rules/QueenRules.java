@@ -18,8 +18,7 @@ public class QueenRules extends CommonRules {
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
                     moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
-                else
-                    possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
             } else
                 // maybe return square value instead
                 moves.add(new Move(currentSquare, newSquare, 0));

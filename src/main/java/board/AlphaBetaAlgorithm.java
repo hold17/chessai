@@ -83,7 +83,6 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                 for (Move legalMove : legalMoves) {
                     if (legalMove == null) continue;
 
-                    final Square toSquare = legalMove.getEndSquare(); // behold for debug
                     int score = legalMove.getScore();
 
                     final Board childBoard = new Board(board);
