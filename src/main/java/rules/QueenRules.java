@@ -10,15 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueenRules extends CommonRules {
-    public List<Move> getLegalMoves(Board gamestate, Square square, Color piececolor) {
+    public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
         final List<Move> moves = new ArrayList<>();
-        final MultiLevelQueue<Square> squares = square.getKingMoves();
-        while (squares.size() > 0) {
-            final Square newSquare = squares.next();
-            if (sameColorOnBothSquares(gamestate, square, newSquare)) {
-                continue;
-            }
-            moves.add(new Move(square, newSquare,getScoreValueAtMoveEnd(gamestate,square)));
+        MultiLevelQueue<Square> possibleMoves = currentSquare.getQueenMoves();
+        while (possibleMoves.size() > 0) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
+                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
+                else
+                    possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            } else
+                // maybe return square value instead
+                moves.add(new Move(currentSquare, newSquare, 0));
         }
         return moves;
     }

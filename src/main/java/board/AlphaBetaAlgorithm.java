@@ -1,6 +1,5 @@
 package board;
 
-import rules.CommonRules;
 import rules.Rules;
 import util.Color;
 import util.Square;
@@ -30,7 +29,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 //        this.board = board;
 //        bestMove = null;
 
-        if(ply++ == MAX_PLY || board.gameOver) return score;
+        if (ply++ == MAX_PLY || board.gameOver) return score;
 
         return board.getCurrentPlayerColor() == Color.WHITE
                 ? calculateMax(board, alpha, beta, ply) : calculateMin(board, alpha, beta, ply);
@@ -43,7 +42,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
             if (Square.isValid(i) && (board.getCurrentPlayerColor() == pieceColor)) {
                 final Square fromSquare = Square.getSquare(i);
 
-                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare,pieceColor);
+                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare, pieceColor);
 
                 for (Move legalMove : legalMoves) {
                     if (legalMove == null) continue;

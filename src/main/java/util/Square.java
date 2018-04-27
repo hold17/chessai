@@ -30,20 +30,22 @@ public enum Square {
             lookup.put(square.getValue(), square);
         }
     }
+
     public static Square getSquare(final String square) {
         final int file = square.toLowerCase().charAt(0) - 96;
         final int rank = Integer.parseInt(square.substring(1, 2));
         final int squareValue = (file + (16 * (rank - 1))) - 1;
         return lookup.get(squareValue);
     }
-    public boolean isEndSquare(){
-        if(this == A8) return true;
-        if(this == B8) return true;
-        if(this == C8) return true;
-        if(this == D8) return true;
-        if(this == E8) return true;
-        if(this == G8) return true;
-        if(this == H8) return true;
+
+    public boolean isEndSquare() {
+        if (this == A8) return true;
+        if (this == B8) return true;
+        if (this == C8) return true;
+        if (this == D8) return true;
+        if (this == E8) return true;
+        if (this == G8) return true;
+        if (this == H8) return true;
 
         return false;
     }

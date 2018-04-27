@@ -1,5 +1,7 @@
-import board.*;
-import rules.CommonRules;
+import board.AlphaBetaAlgorithm;
+import board.Board;
+import board.Move;
+import board.MoveAlgorithm;
 import rules.Rules;
 import util.Color;
 import util.FieldState;
@@ -32,7 +34,7 @@ public class Main {
             command = sc.next();
             writer.write(command);
             writer.flush();
-            switch (command){
+            switch (command) {
                 case "quit":
                     System.exit(0);
                     break;
@@ -64,11 +66,20 @@ public class Main {
 
                     break;
                 case "help":
-                    help(board); break;
+                    help(board);
+                    break;
                 case "go":
                     go(board);
                     break;
-                case "accepted": case "xboard": case "random": case "level": case "post": case "hard": case "time": case "otim": break;
+                case "accepted":
+                case "xboard":
+                case "random":
+                case "level":
+                case "post":
+                case "hard":
+                case "time":
+                case "otim":
+                    break;
                 default:
 //                    System.out.println("#Ukendt kommando: " + command);
                     if (isAMove(command)) {
@@ -100,8 +111,8 @@ public class Main {
 
     private static void move(String moveStr, Board board) {
         char[] chars = moveStr.toCharArray();
-        int pieceIndex = Square.getSquare(moveStr.substring(0,2)).getValue();
-        int destinationIndex = Square.getSquare(moveStr.substring(2,4)).getValue();
+        int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
+        int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
 //        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
 
         board.move(pieceIndex, destinationIndex);

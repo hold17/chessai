@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rules {
-    private CommonRules pawnrules,rookrules,knightrules,bishoprules,queenrules,kingrules;
+    private CommonRules pawnrules, rookrules, knightrules, bishoprules, queenrules, kingrules;
+
     public Rules() {
         pawnrules = new PawnRules();
         rookrules = new RookRules();
         knightrules = new KnightRules();
         bishoprules = new BishopRules();
-        queenrules = new BishopRules();
+        queenrules = new QueenRules();
         kingrules = new KingRules();
     }
+
     public List<Move> getLegalMoves(final Board gamestate, Square square, Color piececolor) {
         final List<Move> moves = new ArrayList<>();
         final FieldState piece = gamestate.getFieldState(square);
@@ -27,18 +29,18 @@ public class Rules {
             case PAWN:
             case WHITE_PAWN:
             case BLACK_PAWN:
-                moves.addAll(pawnrules.getLegalMoves(gamestate,square,color));
+                moves.addAll(pawnrules.getLegalMoves(gamestate, square, color));
                 break;
             case ROOK:
             case WHITE_ROOK:
             case BLACK_ROOK:
-                moves.addAll(rookrules.getLegalMoves(gamestate, square,color));
+                moves.addAll(rookrules.getLegalMoves(gamestate, square, color));
 //                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
-                moves.addAll(knightrules.getLegalMoves(gamestate, square,color));
+                moves.addAll(knightrules.getLegalMoves(gamestate, square, color));
 //                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case BISHOP:
@@ -50,13 +52,13 @@ public class Rules {
             case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
-                moves.addAll(queenrules.getLegalMoves(gamestate, square,color));
+                moves.addAll(queenrules.getLegalMoves(gamestate, square, color));
 //                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
             case KING:
             case WHITE_KING:
             case BLACK_KING:
-                moves.addAll(kingrules.getLegalMoves(gamestate, square,color));
+                moves.addAll(kingrules.getLegalMoves(gamestate, square, color));
 //                moves.addAll(getLegalPawnMoves(gamestate,square,gamestate.getFieldState(square).getColor()));
                 break;
         }

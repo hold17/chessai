@@ -10,13 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PawnRules extends CommonRules {
-    public List<Move> getLegalMoves(final Board gameState, final Square square, Color piececolor)
-    {
+    public List<Move> getLegalMoves(final Board gamestate, final Square currentSquare, Color piececolor) {
         final List<Move> moves = new ArrayList<>();
-        final MultiLevelQueue<Square> squares = square.getPawnMoves(piececolor);
-        boolean canAdvance = true;
-        int score = 0;
-        while (squares.size() > 0) {
+        MultiLevelQueue<Square> possibleMoves = currentSquare.getPawnMoves(piececolor);
+        while (possibleMoves.size() > 0) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare) && currentSquare.sameDiagonal(newSquare))
+                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
+                else
+                    possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            } else {
+                // don't move to empty diagonal square
+                if (currentSquare.sameDiagonal(newSquare))
+                    continue;
+
+                int score = 0;
+                if (newSquare.isEndSquare())
+                    score = 1;
+                // maybe return square value instead
+                moves.add(new Move(currentSquare, newSquare, score));
+            }
+        }
+/*        while (squares.size() > 0) {
             final Square newSquare = squares.next();
             if (square.sameDiagonal(newSquare)) {
                 if (validPawnCapture(gameState, square, newSquare)) {
@@ -32,24 +48,8 @@ public class PawnRules extends CommonRules {
                     canAdvance = false;
                 }
             }
-        }
+        }*/
         return moves;
     }
-//    private boolean validPawnCapture(final Board gameState, final Square startSquare, final Square captureSquare)
-//    {
-//        final FieldState possiblePiece = gameState.getFieldState(captureSquare);
-//        if (possiblePiece == FieldState.EMPTY) {
-//            return false;
-//        }
-//
-//        final FieldState piece = gameState.getFieldState(startSquare);
-//        if (piece.getColor() == possiblePiece.getColor()) {
-//            return false;
-//        }
-//
-//        return true;
-//    }
-    private boolean validPawnCapture(final Board gameState, final Square startSquare, final Square captureSquare) {
-        return canCapture(gameState,startSquare,captureSquare);
-    }
+
 }
