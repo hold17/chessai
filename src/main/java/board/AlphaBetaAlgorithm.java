@@ -1,7 +1,10 @@
 package board;
 
+import rules.CommonRules;
+import rules.Rules;
 import util.Color;
 import util.Square;
+
 import java.util.List;
 
 public class AlphaBetaAlgorithm implements MoveAlgorithm {
@@ -36,10 +39,11 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
     private int calculateMin(Board board, int alpha, int beta, int ply) {
         Move bestMove = null;
         for (int i = 0; i < board.field.length; i++) {
-            if (Square.isValid(i) && (board.getCurrentPlayerColor() == board.field[i].getColor())) {
+            Color pieceColor = board.field[i].getColor();
+            if (Square.isValid(i) && (board.getCurrentPlayerColor() == pieceColor)) {
                 final Square fromSquare = Square.getSquare(i);
 
-                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare);
+                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare,pieceColor);
 
                 for (Move legalMove : legalMoves) {
                     if (legalMove == null) continue;
@@ -49,7 +53,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     final Board childBoard = new Board(board);
 
                     childBoard.move(legalMove);
-                    score += prune(childBoard, score, alpha, beta, ply);
+                    score -= prune(childBoard, score, alpha, beta, ply);
 
                     if (score < beta) {
                         beta = score;
@@ -71,10 +75,11 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
     private int calculateMax(Board board, int alpha, int beta, int ply) {
         Move bestMove = null;
         for (int i = 0; i < board.field.length; i++) {
-            if (Square.isValid(i) && (board.getCurrentPlayerColor() == board.field[i].getColor())) {
+            Color piececolor = board.field[i].getColor();
+            if (Square.isValid(i) && (board.getCurrentPlayerColor() == piececolor)) {
                 final Square fromSquare = Square.getSquare(i);
 
-                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare);
+                List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare, piececolor);
 
                 for (Move legalMove : legalMoves) {
                     if (legalMove == null) continue;

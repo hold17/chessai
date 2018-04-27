@@ -1,4 +1,6 @@
 import board.*;
+import rules.CommonRules;
+import rules.Rules;
 import util.Color;
 import util.FieldState;
 import util.Square;
@@ -89,7 +91,7 @@ public class Main {
 
                 if (board.getFieldState(startSquare) == FieldState.EMPTY) continue;
 
-                allPossibleMoves.add(rules.getLegalMoves(board, startSquare));
+                allPossibleMoves.add(rules.getLegalMoves(board, startSquare, board.field[i].getColor()));
             }
         }
 
