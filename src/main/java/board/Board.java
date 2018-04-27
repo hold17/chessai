@@ -94,8 +94,8 @@ public class Board {
         field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
         field[(Square.B8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.C8.getValue())] = FieldState.BLACK_BISHOP;
-        field[(Square.D8.getValue())] = FieldState.BLACK_KING;
-        field[(Square.E8.getValue())] = FieldState.BLACK_QUEEN;
+        field[(Square.D8.getValue())] = FieldState.BLACK_QUEEN;
+        field[(Square.E8.getValue())] = FieldState.BLACK_KING;
         field[(Square.F8.getValue())] = FieldState.BLACK_BISHOP;
         field[(Square.G8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.H8.getValue())] = FieldState.BLACK_ROOK;
