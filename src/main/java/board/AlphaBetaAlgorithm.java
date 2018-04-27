@@ -9,7 +9,7 @@ import java.util.List;
 public class AlphaBetaAlgorithm implements MoveAlgorithm {
     private static final int MAX_ALPHA = -99999;
     private static final int MAX_BETA = -MAX_ALPHA;
-    private static int[] nodesPerPly = new int[16];
+    private static int[] nodesPerPly = new int[16]; // increase this if we ever get beyond 6 plies
     private final Rules RULES;
     private final int MAX_PLY;
 
@@ -26,8 +26,10 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
         prune(board, 0, MAX_ALPHA, MAX_BETA, 0);
         StringBuilder sb = new StringBuilder("# Nodes per ply:\n");
         for (int i = 0; i < nodesPerPly.length; i++)
-            if (nodesPerPly[i] != 0)
+            if (nodesPerPly[i] != 0) {
                 sb.append(i).append(". ").append(nodesPerPly[i]).append("\n");
+                nodesPerPly[i] = 0; // reset
+            }
         System.out.println(sb);
     }
 

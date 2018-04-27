@@ -47,7 +47,7 @@ public class Main {
                     break;
                 case "protover":
                     sc.next();
-                    System.out.println("feature ping=1 myname=\"ShallowTurquise\" done=1");
+                    System.out.println("feature ping=1 myname=\"ShallowTurquoise\" done=1");
                     break;
                 case "ping":
                     System.out.println("pong " + sc.next());
@@ -110,7 +110,6 @@ public class Main {
     }
 
     private static void move(String moveStr, Board board) {
-        char[] chars = moveStr.toCharArray();
         int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
         int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
 //        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
@@ -125,6 +124,7 @@ public class Main {
         MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(5);
         alphaBetaAlgorithm.aiPlay(board);
         System.out.println("move " + board.getLastMove());
+
     }
 
 

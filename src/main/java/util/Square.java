@@ -91,25 +91,25 @@ public enum Square {
 
         // check whether pawn is still in start position
         if (getRank() == 2) {
-            directions = new int[]{15, 16, 17, 32};
+            return getBasicPawnMoves(directions, true);
         }
 
-        return getBasicMoves(directions, 1);
+        return getBasicPawnMoves(directions, false);
     }
 
     public MultiLevelQueue<Square> getBlackPawnMoves() {
-        int[] directions = new int[]{-16, -15, -17};
+        int[] directions = new int[]{-15, -16, -17};
 
         // check whether pawn is still in start position
         if (getRank() == 7) {
-            directions = new int[]{-16, -15, -17, -32};
+            return getBasicPawnMoves(directions, true);
         }
 
-        return getBasicMoves(directions, 1);
+        return getBasicPawnMoves(directions, false);
     }
 
     /**
-     * Calculates a complete queue of all posible moves given a list of directions and a maximum move distance.
+     * Calculates a complete queue of all possible moves given a list of directions and a maximum move distance.
      *
      * @param directions  directions the piece can move in
      * @param maxDistance maximum move distance of the piece
@@ -134,8 +134,32 @@ public enum Square {
         return squares;
     }
 
+    private MultiLevelQueue<Square> getBasicPawnMoves(final int[] directions, final boolean onStartSquare) {
+        MultiLevelQueue<Square> squares = new MultiLevelQueue<>();
+
+        for (int i = 0; i < directions.length; i++) {
+            squares.addLevel("basicMoves" + i);
+
+            final int distance = directions[i];
+            final int newSquareValue = value + distance;
+            if (isValid(newSquareValue)) {
+                squares.add(lookup.get(newSquareValue));
+            }
+
+            // if on start square, add a double distance move
+            if (onStartSquare && Math.abs(directions[i]) == 16) {
+                final int newSquareValueDoubleDistance = value + distance*2;
+                if (isValid(newSquareValueDoubleDistance)) {
+                    squares.add(lookup.get(newSquareValueDoubleDistance));
+                }
+            }
+        }
+
+        return squares;
+    }
+
     /**
-     * Checks whether or not a sqaure is within the boundaries of the board.
+     * Checks whether or not a square is within the boundaries of the board.
      *
      * @param square square to check validity of
      * @return True if the square is within the boundaries of the game board
