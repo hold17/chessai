@@ -8,15 +8,13 @@ public class Move {
     private final Square endSquare;
     private int score;
 
-    public Move()
-    {
+    public Move() {
         startSquare = Square.NULL;
         endSquare = Square.NULL;
         score = 0;
     }
 
-    public Move(final Square startSquare, final Square endSquare, int score)
-    {
+    public Move(final Square startSquare, final Square endSquare, int score) {
         this.startSquare = startSquare;
         this.endSquare = endSquare;
         this.score = score;
@@ -26,24 +24,20 @@ public class Move {
         this(startSquare, endSquare, 0);
     }
 
-    public Square getStartSquare()
-    {
+    public Square getStartSquare() {
         return startSquare;
     }
 
-    public Square getEndSquare()
-    {
+    public Square getEndSquare() {
         return endSquare;
     }
 
-    public boolean isNull()
-    {
+    public boolean isNull() {
         return (startSquare == Square.NULL || endSquare == Square.NULL);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return startSquare.toString() + "-" + endSquare.toString();
     }
 

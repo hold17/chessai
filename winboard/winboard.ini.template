@@ -274,7 +274,7 @@ chess.mds.mdh.se /icsport=5000
 /firstChessProgramNames={fmax /fd=Fairy-Max
 GNUChess
 "GNUChes5 xboard"
-"java -jar chessai-java.jar" -fd "C:\Users\awo\IdeaProjects\chessai-java\out\artifacts\chessai_java_jar"
+"java -jar chessai-java.jar" -fd "C:\Users\twast\IdeaProjects\chessai-java\out\artifacts\chessai_java_jar"
 }
 /secondChessProgramNames={fmax /sd=Fairy-Max
 GNUChess

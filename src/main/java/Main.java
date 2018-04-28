@@ -1,4 +1,8 @@
-import board.*;
+import board.AlphaBetaAlgorithm;
+import board.Board;
+import board.Move;
+import board.MoveAlgorithm;
+import rules.Rules;
 import util.Color;
 import util.FieldState;
 import util.Square;
@@ -30,7 +34,7 @@ public class Main {
             command = sc.next();
             writer.write(command);
             writer.flush();
-            switch (command){
+            switch (command) {
                 case "quit":
                     System.exit(0);
                     break;
@@ -43,7 +47,7 @@ public class Main {
                     break;
                 case "protover":
                     sc.next();
-                    System.out.println("feature ping=1 done=1");
+                    System.out.println("feature ping=1 myname=\"ShallowTurquoise\" done=1");
                     break;
                 case "ping":
                     System.out.println("pong " + sc.next());
@@ -62,11 +66,20 @@ public class Main {
 
                     break;
                 case "help":
-                    help(board); break;
+                    help(board);
+                    break;
                 case "go":
                     go(board);
                     break;
-                case "accepted": case "xboard": case "random": case "level": case "post": case "hard": case "time": case "otim": break;
+                case "accepted":
+                case "xboard":
+                case "random":
+                case "level":
+                case "post":
+                case "hard":
+                case "time":
+                case "otim":
+                    break;
                 default:
 //                    System.out.println("#Ukendt kommando: " + command);
                     if (isAMove(command)) {
@@ -89,7 +102,7 @@ public class Main {
 
                 if (board.getFieldState(startSquare) == FieldState.EMPTY) continue;
 
-                allPossibleMoves.add(rules.getLegalMoves(board, startSquare));
+                allPossibleMoves.add(rules.getLegalMoves(board, startSquare, board.field[i].getColor()));
             }
         }
 
@@ -97,9 +110,8 @@ public class Main {
     }
 
     private static void move(String moveStr, Board board) {
-        char[] chars = moveStr.toCharArray();
-        int pieceIndex = Square.getSquare(moveStr.substring(0,2)).getValue();
-        int destinationIndex = Square.getSquare(moveStr.substring(2,4)).getValue();
+        int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
+        int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
 //        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
 
         board.move(pieceIndex, destinationIndex);
@@ -112,6 +124,7 @@ public class Main {
         MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(5);
         alphaBetaAlgorithm.aiPlay(board);
         System.out.println("move " + board.getLastMove());
+
     }
 
 

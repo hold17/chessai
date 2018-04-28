@@ -39,6 +39,16 @@ public class MultiLevelQueue<E> {
         clearLevelAndDecreaseCount();
     }
 
+    public void removeSpecificLevel(String levelName) {
+        final Queue<E> level = levels.get(levelName);
+        size -= level.size();
+        level.clear();
+    }
+
+    public String getCurrentLevelName() {
+        return levels.firstEntry().getKey();
+    }
+
     private void clearLevelAndDecreaseCount() {
         final Queue<E> level = getHeadLevel();
         size -= level.size();
