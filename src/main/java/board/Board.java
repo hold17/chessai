@@ -1,45 +1,28 @@
 package board;
 
-
 import util.Color;
 import util.FieldState;
 import util.Square;
 
 public class Board {
-    private int moveCount;
-    Color player; //Aktuel spiller
-    Color winner; // Vinder
-    Color machine; // AI
-    private Color startingPlayer;
-    private long maxMoveTime;
-    private long currentMoveStartTime;
-
-    private String lastMove;
-
-
-    public boolean gameOver;
-
     public FieldState[] field;
-    //    public fState player;
+    private String lastMove;
+    private int moveCount;
     private int currentField;
-//    FieldState fState;
+    public boolean gameOver;
+    private Color startingPlayer;
+    private Color player; //Aktuel spiller
+    private Color machine; // AI
+    private Color winner; // Vinder
+//    private long maxMoveTime;
+//    private long currentMoveStartTime;
 
-
-    //    public fState winner;
     public Board() {
         field = new FieldState[128];
         initializeBoard();   // HEX 88
     }
 
     public Board(Board board) {
-//        board.field = this.field.clone();
-//        board.player = this.player;
-//        board.winner = this.winner;
-//        board.machine = this.machine;
-//        board.moveCount = this.moveCount;
-//        board.gameOver = this.gameOver;
-//        board.currentField = this.currentField;
-
         this.field = board.field.clone();
         this.player = board.player;
         this.winner = board.winner;
@@ -49,23 +32,8 @@ public class Board {
         this.currentField = board.currentField;
         this.startingPlayer = board.startingPlayer;
         this.lastMove = board.lastMove;
-        this.maxMoveTime = board.maxMoveTime;
-        this.currentMoveStartTime = board.currentMoveStartTime;
-    }
-
-    /**
-     * Kopierer brættet til alpha-beta
-     *
-     * @return kopi af bræt
-     */
-//    Board getDeepCopy() {
-//        Board board             = new Board();
-//
-//        return board;
-//    }
-
-    boolean isGameOver() {
-        return gameOver;
+//        this.maxMoveTime = board.maxMoveTime;
+//        this.currentMoveStartTime = board.currentMoveStartTime;
     }
 
     public void initializeBoard() {
@@ -91,6 +59,7 @@ public class Board {
         for (int i = Square.A2.getValue(); i < Square.A2.getValue() + 8; i++) {
             field[i] = FieldState.WHITE_PAWN;
         }
+
         field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
         field[(Square.B8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.C8.getValue())] = FieldState.BLACK_BISHOP;
@@ -102,64 +71,71 @@ public class Board {
         for (int i = Square.A7.getValue(); i < Square.A7.getValue() + 8; i++) {
             field[i] = FieldState.BLACK_PAWN;
         }
-
     }
 
     /**
-     * Tager kommandoer direkte fra konsollen, hvor der skal skrives i Winboard format, derfor skal strengen behandles
+     * Tager kommando i Winboard format, derfor skal strengen behandles
      *
      * @param from
      * @param to
-     * @return
      */
-    public void move(int from, int to) {
-        FieldState piece = field[from];
-        // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
-        field[from] = FieldState.EMPTY;
-        field[to] = piece;
-        moveCount++;
-        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
+    public void moveAlgebraic(int from, int to) {
+        final Square fromSquare = Square.getSquare(field[from].getValue());
+        final Square toSquare = Square.getSquare(field[to].getValue());
 
-        if (player == Color.WHITE) player = Color.BLACK;
-        else player = Color.WHITE;
-//        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
-//        currentField = fieldnumber;
+        Move move = new Move(fromSquare, toSquare, 0);
+        move(move);
+    }
+
+    /**
+     * Tager pawn promotion kommando i Winboard format, derfor skal strengen behandles
+     *
+     * @param from
+     * @param to
+     * @param officerType Queen, Rook, Bishop, Knight
+     */
+    public void movePawnPromotion(int from, int to, String officerType) {
+        final Square fromSquare = Square.getSquare(field[from].getValue());
+        final Square toSquare = Square.getSquare(field[to].getValue());
+
+        Move move = new Move(fromSquare, toSquare, 0, true, getFieldStateByLetter(officerType));
+        move(move);
     }
 
     public void move(Move move) {
-        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
+        final int from = move.getStartSquare().getValue();
+        final int to = move.getEndSquare().getValue();
+
+        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
+
+        FieldState piece;
+        if (move.isPawnPromotion()) {
+            piece = move.getOfficerType();
+            lastMove += piece.getLetter();
+        } else
+            piece = field[from];
+
+        // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
+        field[from] = FieldState.EMPTY;
+        field[to] = piece;
+
+        moveCount++;
+
+        if (player == Color.WHITE) player = Color.BLACK;
+        else player = Color.WHITE;
     }
 
-    public void go(Board board, MoveAlgorithm moveAlgorithm) {
-        currentMoveStartTime = System.currentTimeMillis() / 1000;
-        moveAlgorithm.aiPlay(board);
+//    public void go(Board board, MoveAlgorithm moveAlgorithm) {
+//        currentMoveStartTime = System.currentTimeMillis() / 1000;
+//        moveAlgorithm.aiPlay(board);
+//    }
 
-    }
-    public void upgradePawn(Square whichPawn, FieldState toWhichPiece) {
-        field[whichPawn.getValue()] = toWhichPiece;
+    boolean isGameOver() {
+        return gameOver;
     }
 
     public FieldState getFieldState(final Square square) {
         return field[square.getValue()];
-    }
-    public FieldState getFieldState(final String which, Square whichSquare) {
-        FieldState fieldState = field[whichSquare.getValue()];
-        if (fieldState.isWhite()){
-            if(which.contains("q")) fieldState = FieldState.WHITE_QUEEN;
-            else if (which.contains("r")) fieldState = FieldState.WHITE_ROOK;
-            else if(which.contains("k"))  fieldState = FieldState.WHITE_KNIGHT;
-
-        } else if (fieldState.isBlack()){
-            if(which.contains("q")) fieldState = FieldState.BLACK_QUEEN;
-            else if (which.contains("r")) fieldState = FieldState.BLACK_ROOK;
-            else if(which.contains("k"))  fieldState = FieldState.BLACK_KNIGHT;
-
-        }
-        return fieldState;
-    }
-
-    public void setMachineColor(Color player) {
-        this.machine = player;
     }
 
     public Color getMachineColor() {
@@ -178,5 +154,26 @@ public class Board {
         return lastMove;
     }
 
+    public void setMachineColor(Color player) {
+        this.machine = player;
+    }
+
+    private FieldState getFieldStateByLetter(String letter) {
+        switch(letter) {
+            case "Q": return FieldState.WHITE_QUEEN;
+            case "R": return FieldState.WHITE_ROOK;
+            case "B": return FieldState.WHITE_BISHOP;
+            case "N": return FieldState.WHITE_KNIGHT;
+            case "P": return FieldState.WHITE_PAWN;
+            case "q": return FieldState.BLACK_QUEEN;
+            case "r": return FieldState.BLACK_ROOK;
+            case "b": return FieldState.BLACK_BISHOP;
+            case "n": return FieldState.BLACK_KNIGHT;
+            case "p": return FieldState.BLACK_PAWN;
+            default:
+                System.err.println("[Board.getFieldStateByLetter]: Oh noes! This argument doesn't work:" + letter);
+        }
+        return null;
+    }
 
 }
