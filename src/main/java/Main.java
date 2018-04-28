@@ -84,7 +84,16 @@ public class Main {
 //                    System.out.println("#Ukendt kommando: " + command);
                     if (isAMove(command)) {
                         move(command, board);
-                    }
+                    } else if(isPromotion(command)) {
+                        move(command, board);
+//                        Call method to upgrade pawn
+                        Square whichSquare = Square.getSquare(command.substring(2, 4));
+                        board.getFieldState(whichSquare);
+                        FieldState toWhichPiece = board.getFieldState(command.substring(5),whichSquare);
+                        board.upgradePawn(whichSquare, toWhichPiece);
+
+                }
+
             }
 
             writer.println();
@@ -113,9 +122,7 @@ public class Main {
         int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
         int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
 //        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
-
         board.move(pieceIndex, destinationIndex);
-
         go(board);
     }
 
@@ -130,8 +137,12 @@ public class Main {
 
     private static boolean isAMove(String message) {
         final String regex = "[a-h][1-8][a-h][1-8]";
-
         return message.matches(regex);
+    }
+    private static boolean isPromotion(String message) {
+        final String regex = "[a-h][1-8][a-h][1-8][qrbkQRBK]";
+        return message.matches(regex);
+
     }
 }
 

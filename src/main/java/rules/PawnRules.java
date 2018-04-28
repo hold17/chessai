@@ -35,4 +35,5 @@ public class PawnRules extends CommonRules {
         return moves;
     }
 
+
 }

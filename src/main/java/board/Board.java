@@ -135,9 +135,27 @@ public class Board {
         moveAlgorithm.aiPlay(board);
 
     }
+    public void upgradePawn(Square whichPawn, FieldState toWhichPiece) {
+        field[whichPawn.getValue()] = toWhichPiece;
+    }
 
     public FieldState getFieldState(final Square square) {
         return field[square.getValue()];
+    }
+    public FieldState getFieldState(final String which, Square whichSquare) {
+        FieldState fieldState = field[whichSquare.getValue()];
+        if (fieldState.isWhite()){
+            if(which.contains("q")) fieldState = FieldState.WHITE_QUEEN;
+            else if (which.contains("r")) fieldState = FieldState.WHITE_ROOK;
+            else if(which.contains("k"))  fieldState = FieldState.WHITE_KNIGHT;
+
+        } else if (fieldState.isBlack()){
+            if(which.contains("q")) fieldState = FieldState.BLACK_QUEEN;
+            else if (which.contains("r")) fieldState = FieldState.BLACK_ROOK;
+            else if(which.contains("k"))  fieldState = FieldState.BLACK_KNIGHT;
+
+        }
+        return fieldState;
     }
 
     public void setMachineColor(Color player) {
