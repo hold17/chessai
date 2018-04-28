@@ -13,9 +13,6 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
     private final Rules RULES;
     private final int MAX_PLY;
 
-//    private Board board;
-//    private Move bestMove;
-
     public AlphaBetaAlgorithm(int MAX_PLY) {
         this.RULES = new Rules(); // yes it does, I know...
         this.MAX_PLY = MAX_PLY;
@@ -35,8 +32,6 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
     private int prune(Board board, int score, int alpha, int beta, int ply) {
         nodesPerPly[ply]++;
-//        this.board = board;
-//        bestMove = null;
 
         if (ply++ == MAX_PLY || board.gameOver) return score;
 
