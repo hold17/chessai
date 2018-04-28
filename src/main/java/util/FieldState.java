@@ -6,12 +6,12 @@ package util;
  */
 public enum FieldState {
     EMPTY(0),
-    PAWN(1),
+/*    PAWN(1),
     KNIGHT(3),
     KING(99),
     BISHOP(3),
     ROOK(5),
-    QUEEN(9),
+    QUEEN(9),*/
     WHITE_PAWN(1),
     WHITE_KNIGHT(3),
     WHITE_KING(99),
@@ -50,31 +50,31 @@ public enum FieldState {
         return value < 0;
     }
 
-    public boolean isKing() {
-        return Math.abs(value) == KING.getValue();
-    }
+//    public boolean isKing() {
+//        return Math.abs(value) == KING.getValue();
+//    }
+//
+//    public boolean isQueen() {
+//        return Math.abs(value) == QUEEN.getValue();
+//    }
+//
+//    public boolean isRook() {
+//        return Math.abs(value) == ROOK.getValue();
+//    }
+//
+//    public boolean isBishop() {
+//        return Math.abs(value) == BISHOP.getValue();
+//    }
+//
+//    public boolean isKnight() {
+//        return Math.abs(value) == KNIGHT.getValue();
+//    }
+//
+//    public boolean isPawn() {
+//        return Math.abs(value) == PAWN.getValue();
+//    }
 
-    public boolean isQueen() {
-        return Math.abs(value) == QUEEN.getValue();
-    }
-
-    public boolean isRook() {
-        return Math.abs(value) == ROOK.getValue();
-    }
-
-    public boolean isBishop() {
-        return Math.abs(value) == BISHOP.getValue();
-    }
-
-    public boolean isKnight() {
-        return Math.abs(value) == KNIGHT.getValue();
-    }
-
-    public boolean isPawn() {
-        return Math.abs(value) == PAWN.getValue();
-    }
-
-    public String getLetter() {
+/*    public String getLetter() {
         String letter = "";
 
         if (isKing()) {
@@ -96,5 +96,5 @@ public enum FieldState {
         }
 
         return letter;
-    }
+    }*/
 }

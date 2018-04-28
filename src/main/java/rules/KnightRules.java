@@ -18,10 +18,10 @@ public class KnightRules extends CommonRules {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
+                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, currentSquare, newSquare)));
             } else
                 // maybe return square value instead
-                moves.add(new Move(currentSquare, newSquare, 0));
+                moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, currentSquare, newSquare)));
         }
         return moves;
     }

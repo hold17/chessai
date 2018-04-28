@@ -6,9 +6,21 @@ import util.Color;
 import util.FieldState;
 import util.Square;
 
-import java.util.List;
+import java.util.*;
 
 public abstract class CommonRules {
+    private static final Map<FieldState, Map<Square, Integer>> STATIC_EVAL_VALUES = new EnumMap<>(FieldState.class);
+
+    static {
+        final SquareValues sq = new SquareValues();
+        for (FieldState piece : EnumSet.allOf(FieldState.class)) {
+            if (piece == FieldState.EMPTY)
+                continue;
+            STATIC_EVAL_VALUES.put(piece, sq.getSquareValuesOfType(piece));
+        }
+        // System.out.println(STATIC_EVAL_VALUES.toString());
+    }
+
     abstract public List<Move> getLegalMoves(final Board gamestate, final Square square, final Color piececolor);
 
     boolean squareIsEmpty(final Board gameState, final Square square) {
@@ -21,8 +33,9 @@ public abstract class CommonRules {
         return (color1 == color2);
     }
 
-    int getScoreValueAtMoveEnd(final Board gameState, final Square square) {
-        final int value = gameState.getFieldState(square).getValue();
+    int getScoreValueAtMoveEnd(final Board gameState, final Square currentSquare, final Square newSquare) {
+        final int value = gameState.getFieldState(newSquare).getValue()
+                + STATIC_EVAL_VALUES.get(gameState.getFieldState(currentSquare)).get(newSquare);
         return (value > 0) ? value : -value;
     }
 
