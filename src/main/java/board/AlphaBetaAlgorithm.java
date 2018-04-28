@@ -23,14 +23,17 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
     @Override
     public void aiPlay(Board board) {
+        long iterationTimeStart = System.currentTimeMillis();
         prune(board, 0, MAX_ALPHA, MAX_BETA, 0);
+        long iterationTimePassed = System.currentTimeMillis() - iterationTimeStart;
+        System.err.println("Time " + iterationTimePassed + " ms");
         StringBuilder sb = new StringBuilder("# Nodes per ply:\n");
         for (int i = 0; i < nodesPerPly.length; i++)
             if (nodesPerPly[i] != 0) {
                 sb.append(i).append(". ").append(nodesPerPly[i]).append("\n");
                 nodesPerPly[i] = 0; // reset
             }
-        System.out.println(sb);
+        System.err.println(sb);
     }
 
     private int prune(Board board, int score, int alpha, int beta, int ply) {
