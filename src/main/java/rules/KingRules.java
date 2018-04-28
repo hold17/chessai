@@ -26,8 +26,12 @@ public class KingRules extends CommonRules {
         while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
+                final Move potentialMove = new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare));
+                if (Rules.moveResultsInCheck(gamestate, potentialMove)) continue;
+
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
+
+                    moves.add(potentialMove);
                 possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
             } else
                 // maybe return square value instead

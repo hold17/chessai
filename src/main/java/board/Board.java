@@ -137,6 +137,7 @@ public class Board {
     }
 
     public FieldState getFieldState(final Square square) {
+        if (square.getValue() == -1) return FieldState.EMPTY;
         return field[square.getValue()];
     }
 
