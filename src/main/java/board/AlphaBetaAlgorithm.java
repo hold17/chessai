@@ -22,11 +22,14 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
     public void aiPlay(Board board) {
         prune(board, 0, MAX_ALPHA, MAX_BETA, 0);
         StringBuilder sb = new StringBuilder("# Nodes per ply:\n");
-        for (int i = 0; i < nodesPerPly.length; i++)
+
+        for (int i = 0; i < nodesPerPly.length; i++) {
             if (nodesPerPly[i] != 0) {
                 sb.append(i).append(". ").append(nodesPerPly[i]).append("\n");
                 nodesPerPly[i] = 0; // reset
             }
+        }
+
         System.out.println(sb);
     }
 
@@ -51,7 +54,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                 final Square fromSquare = Square.getSquare(i);
                 final List<Move> legalMoves = RULES.getLegalMoves(board, fromSquare, pieceColor);
 
-                for (Move legalMove : legalMoves) {
+                for (final Move legalMove : legalMoves) {
                     if (legalMove == null) continue;
 
                     int score = playerColor == Color.WHITE ? legalMove.getScore() : -legalMove.getScore();
