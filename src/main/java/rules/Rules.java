@@ -61,7 +61,10 @@ public class Rules {
     }
 
     public static boolean moveResultsInCheck(final Board board, final Move move) {
-        return inCheck(board);
+        final Board childBoard = new Board(board);
+        childBoard.move(move);
+
+        return inCheck(childBoard);
     }
 
     /**
