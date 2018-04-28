@@ -25,9 +25,10 @@ public class KingRules extends CommonRules {
         MultiLevelQueue<Square> possibleMoves = currentSquare.getKingMoves();
         while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
+            final Move potentialMove = new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare));
+            if (Rules.moveResultsInCheck(gamestate, potentialMove)) continue; // This doesn't work as expected?
+
             if (!squareIsEmpty(gamestate, newSquare)) {
-                final Move potentialMove = new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare));
-                if (Rules.moveResultsInCheck(gamestate, potentialMove)) continue;
 
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
 
