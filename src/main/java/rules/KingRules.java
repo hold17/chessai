@@ -27,10 +27,10 @@ public class KingRules extends CommonRules {
         while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
             final Move potentialMove = new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare));
-            if (Rules.moveResultsInCheck(gamestate, potentialMove, piececolor)) {
-                // Do nothing results in check
-            }
-            else if (!squareIsEmpty(gamestate, newSquare)) {
+//            if (Rules.moveResultsInCheck(gamestate, potentialMove, piececolor)) {
+//                // Do nothing results in check
+//            }
+            if (!squareIsEmpty(gamestate, newSquare)) {
 
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
 //                    Tildel point hvis modstanderen sættes i skak
@@ -44,6 +44,8 @@ public class KingRules extends CommonRules {
         return moves;
     }
 
+
+
     boolean isCheck(Board board, Color kingColor) {
         int kingPosition = Rules.findKingPosition(board,kingColor);
         final Square kingSquare = Square.getSquare(kingPosition);
@@ -51,7 +53,7 @@ public class KingRules extends CommonRules {
 
             final Color pieceColor = board.field[i].getColor();
 
-            if (Square.isValid(i) && (kingColor != pieceColor)) {
+            if (kingColor != Color.NULL && Square.isValid(i) && (kingColor != pieceColor)) {
                 final Square fromSquare = Square.getSquare(i);
                 final List<Move> legalMoves = getLegalMoves(board, fromSquare, pieceColor);
                 for (final Move legalMove : legalMoves) {

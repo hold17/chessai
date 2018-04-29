@@ -23,41 +23,44 @@ public class Rules {
     public List<Move> getLegalMoves(final Board gameState, final Square currentSquare, final Color piececolor) {
         final List<Move> moves = new ArrayList<>();
         final FieldState piece = gameState.getFieldState(currentSquare);
+        List<Move> newmoves = null;
         switch (piece) {
             case PAWN:
             case WHITE_PAWN:
             case BLACK_PAWN:
-                moves.addAll(pawnrules.getLegalMoves(gameState, currentSquare, piececolor));
+                newmoves = pawnrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case ROOK:
             case WHITE_ROOK:
             case BLACK_ROOK:
-                moves.addAll(rookrules.getLegalMoves(gameState, currentSquare, piececolor));
+                newmoves = rookrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
-                moves.addAll(knightrules.getLegalMoves(gameState, currentSquare, piececolor));
+               newmoves = knightrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case BISHOP:
             case WHITE_BISHOP:
             case BLACK_BISHOP:
-                moves.addAll(bishoprules.getLegalMoves(gameState, currentSquare, piececolor));
+                newmoves = bishoprules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
-                moves.addAll(queenrules.getLegalMoves(gameState, currentSquare, piececolor));
+                newmoves = queenrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case KING:
             case WHITE_KING:
             case BLACK_KING:
-                moves.addAll(kingrules.getLegalMoves(gameState, currentSquare, piececolor));
+                newmoves = kingrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
         }
 
+        moves.addAll(newmoves);
         return moves;
     }
+
 
     public static boolean moveResultsInCheck(final Board board, final Move move, Color piececolor) {
         final Board childBoard = new Board(board);
