@@ -18,6 +18,8 @@ public class KnightRules extends CommonRules {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
+                    //                    Tildel point hvis modstanderen sættes i skak
+
                     moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
             } else
                 // maybe return square value instead

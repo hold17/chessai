@@ -48,5 +48,7 @@ public class Move {
     public void setScore(int score) {
         this.score = score;
     }
+
+
 }
 

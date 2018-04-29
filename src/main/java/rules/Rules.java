@@ -20,7 +20,6 @@ public class Rules {
         queenrules = new QueenRules();
         kingrules = new KingRules();
     }
-
     public List<Move> getLegalMoves(final Board gameState, final Square currentSquare, final Color piececolor) {
         final List<Move> moves = new ArrayList<>();
         final FieldState piece = gameState.getFieldState(currentSquare);
@@ -60,68 +59,60 @@ public class Rules {
         return moves;
     }
 
-    public static boolean moveResultsInCheck(final Board board, final Move move) {
+    public static boolean moveResultsInCheck(final Board board, final Move move, Color piececolor) {
         final Board childBoard = new Board(board);
         childBoard.move(move);
-
-        return inCheck(childBoard);
+        KingRules kingRules = new KingRules();
+        return kingRules.isCheck(childBoard, piececolor);
     }
 
-    /**
-     * Hacky as fuck, but it sure as hell works
-     *
-     * @param board  Current state of the board
-     * @return Whether or not the king is in check.
-     */
-    public static boolean inCheck(final Board board) {
-        final int kingPosition = findKingPosition(board);
-        final Square kingSquare = Square.getSquare(kingPosition);
-        if(kingPosition == 101) {
-            System.out.println("Konge");
-        }
 
-        // ROOKS and QUEENS
-        final RookRules rr = new RookRules();
-        final List<Move> rookMoves = rr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
-        for (final Move move : rookMoves) {
-            final int endPosition = move.getEndSquare().getValue();
-            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
-
-            if (board.field[endPosition].isRook() || board.field[endPosition].isQueen()) return true;
-        }
-
-        // BISHOPS and QUEENS
-        final BishopRules br = new BishopRules();
-        final List<Move> bishopMoves = br.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
-        for (final Move move : bishopMoves) {
-            final int endPosition = move.getEndSquare().getValue();
-            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
-
-            if (board.field[endPosition].isBishop() || board.field[endPosition].isQueen()) return true;
-        }
-
-        // PAWNS
-        final PawnRules pr = new PawnRules();
-        final List<Move> pawnMoves = pr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
-        for (final Move move : pawnMoves) {
-            final int endPosition = move.getEndSquare().getValue();
-            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
-
-            if (board.field[endPosition].isPawn()) return true;
-        }
-
-        // KNIGHTS
-        final KnightRules kr = new KnightRules();
-        final List<Move> knightMoves = kr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
-        for (final Move move : knightMoves) {
-            final int endPosition = move.getEndSquare().getValue();
-            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
-
-            if (board.field[endPosition].isKnight()) return true;
-        }
-
-        return false;
-    }
+//    public static boolean inCheck(final Board board) {
+//        int kingPosition = findKingPosition(board);
+//        final Square kingSquare = Square.getSquare(kingPosition);
+//
+//        // ROOKS and QUEENS
+//        final RookRules rr = new RookRules();
+//        final List<Move> rookMoves = rr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
+//        for (final Move move : rookMoves) {
+//            final int endPosition = move.getEndSquare().getValue();
+//            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
+//
+//            if (board.field[endPosition].isRook() || board.field[endPosition].isQueen()) return true;
+//        }
+//
+//        // BISHOPS and QUEENS
+//        final BishopRules br = new BishopRules();
+//        final List<Move> bishopMoves = br.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
+//        for (final Move move : bishopMoves) {
+//            final int endPosition = move.getEndSquare().getValue();
+//            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
+//
+//            if (board.field[endPosition].isBishop() || board.field[endPosition].isQueen()) return true;
+//        }
+//
+//        // PAWNS
+//        final PawnRules pr = new PawnRules();
+//        final List<Move> pawnMoves = pr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
+//        for (final Move move : pawnMoves) {
+//            final int endPosition = move.getEndSquare().getValue();
+//            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
+//
+//            if (board.field[endPosition].isPawn()) return true;
+//        }
+//
+//        // KNIGHTS
+//        final KnightRules kr = new KnightRules();
+//        final List<Move> knightMoves = kr.getLegalMoves(board, kingSquare, board.getCurrentPlayerColor());
+//        for (final Move move : knightMoves) {
+//            final int endPosition = move.getEndSquare().getValue();
+//            if (board.field[endPosition].getColor() == board.getCurrentPlayerColor()) continue;
+//
+//            if (board.field[endPosition].isKnight()) return true;
+//        }
+//
+//        return false;
+//    }
 
     /**
      * Finds the king and returns the position in the <code>field</code> array in a <code>Board</code>.
@@ -129,10 +120,12 @@ public class Rules {
      * @param board  Current state of the game
      * @return  The position of the king in the <code>field</code> array, or -1 if the king was not found.
      */
-    public static int findKingPosition(final Board board) {
+    static int findKingPosition(final Board board, Color kingColor) {
         int length = board.field.length-1;
         for (int i = length; i >= 0; i--) {
-            if (board.field[i].isKing()) return i;
+            if(board.getCurrentPlayerColor() == kingColor) {
+                if (board.field[i].isKing()) return i;
+            }
         }
 
         return -1;

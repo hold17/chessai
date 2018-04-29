@@ -51,8 +51,9 @@ public enum FieldState {
     }
 
     public boolean isKing() {
-        return Math.abs(value) == KING.getValue();
+        return Math.abs(this.value) == KING.getValue();
     }
+
 
     public boolean isQueen() {
         return Math.abs(value) == QUEEN.getValue();
