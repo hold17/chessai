@@ -51,9 +51,9 @@ public class KingRules extends CommonRules {
 
             final Color pieceColor = board.field[i].getColor();
 
-            if (Square.isValid(i) && (kingColor != pieceColor)) {
-                final Square fromSquare = Square.getSquare(i);
-                final List<Move> legalMoves = getLegalMoves(board, fromSquare, pieceColor);
+            if (pieceColor != Color.NULL && Square.isValid(i) && kingColor != pieceColor) {
+                Square fromSquare = Square.getSquare(i);
+                List<Move> legalMoves = getLegalMoves(board, fromSquare, pieceColor);
                 for (final Move legalMove : legalMoves) {
                     if (legalMove == null) continue;
                     if(legalMove.getEndSquare() == kingSquare) {
