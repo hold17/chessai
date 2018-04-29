@@ -80,8 +80,8 @@ public class Board {
      * @param to
      */
     public void moveAlgebraic(int from, int to) {
-        final Square fromSquare = Square.getSquare(field[from].getValue());
-        final Square toSquare = Square.getSquare(field[to].getValue());
+        final Square fromSquare = Square.getSquare(from);
+        final Square toSquare = Square.getSquare(to);
 
         Move move = new Move(fromSquare, toSquare, 0);
         move(move);
