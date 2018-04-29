@@ -76,6 +76,9 @@ public class Rules {
     public static boolean inCheck(final Board board) {
         final int kingPosition = findKingPosition(board);
         final Square kingSquare = Square.getSquare(kingPosition);
+        if(kingPosition == 101) {
+            System.out.println("Konge");
+        }
 
         // ROOKS and QUEENS
         final RookRules rr = new RookRules();
@@ -127,7 +130,8 @@ public class Rules {
      * @return  The position of the king in the <code>field</code> array, or -1 if the king was not found.
      */
     public static int findKingPosition(final Board board) {
-        for (int i = board.field.length; i <= 0; i--) {
+        int length = board.field.length-1;
+        for (int i = length; i >= 0; i--) {
             if (board.field[i].isKing()) return i;
         }
 
