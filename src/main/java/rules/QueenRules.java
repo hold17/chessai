@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueenRules extends CommonRules {
+    @Override
     public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
         final List<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getQueenMoves();

@@ -12,6 +12,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class PawnRules extends CommonRules {
+    @Override
     public List<Move> getLegalMoves(final Board gamestate, final Square currentSquare, Color piececolor) {
         final List<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getPawnMoves(piececolor);
@@ -26,7 +27,7 @@ public class PawnRules extends CommonRules {
                 if (currentSquare.sameDiagonal(newSquare))
                     continue;
 
-                int score = getScoreValueAtMoveEnd(gamestate, currentSquare, newSquare);
+                int score = getScoreValueAtMoveEnd(gamestate, newSquare);
                 // is it a pawn promotion move?
                 if (newSquare.isEndSquare()) {
                     score += piececolor == Color.WHITE ? -10 : 10; // need better values and/or method
