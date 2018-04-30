@@ -127,7 +127,7 @@ public class Main {
 
     private static void go(Board board) {
 //        help(board);
-        MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(7);
+        MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(6);
         alphaBetaAlgorithm.aiPlay(board);
         System.out.println("move " + board.getLastMove());
 

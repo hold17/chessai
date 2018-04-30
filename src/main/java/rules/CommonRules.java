@@ -26,35 +26,28 @@ public abstract class CommonRules {
     }
 
     void addMovesAI(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
-        int score = -100;
-        int currentscore = 0;
-        while (possibleMoves.size() > 0 && currentscore > score) {
+
+        while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
-                    moves.add(new Move(currentSquare, newSquare, currentscore));
-
+                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate,newSquare)));
                 }
 //                    Tildel point hvis modstanderen sættes i skak
                 possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
             }
-            score = currentscore;
         }
     }
     void addMovesOpponent(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
-        int score = 100;
-        int currentscore = 0;
-        while (possibleMoves.size() > 0 && currentscore < score) {
+        while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
-                    moves.add(new Move(currentSquare, newSquare, currentscore));
-
+                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate,newSquare)));
                 }
 //                    Tildel point hvis modstanderen sættes i skak
                 possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
             }
-            score = currentscore;
         }
     }
 

@@ -23,8 +23,9 @@ public class KingRules extends CommonRules {
     public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
         ArrayList<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getKingMoves();
-        if(piececolor == Color.WHITE) addMovesAI(possibleMoves,gamestate,currentSquare,moves);
-        if(piececolor == Color.BLACK) addMovesOpponent(possibleMoves,gamestate,currentSquare,moves);
+        addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+//        if(piececolor == Color.WHITE) addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+//        if(piececolor == Color.BLACK) addMovesOpponent(possibleMoves,gamestate,currentSquare,moves);
         return moves;
     }
 

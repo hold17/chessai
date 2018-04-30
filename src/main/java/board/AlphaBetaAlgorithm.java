@@ -57,10 +57,6 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     if (legalMove == null) continue;
 
                     int score = playerColor == Color.WHITE ? legalMove.getScore() : -legalMove.getScore();
-                    if(score >= 50){
-                        System.out.println(legalMove.toString());
-                    }
-
                     final Board childBoard = new Board(board);
 
                     childBoard.move(legalMove);
