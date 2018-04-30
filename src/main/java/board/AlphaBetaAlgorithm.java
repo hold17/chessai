@@ -38,12 +38,11 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
         if (ply++ == MAX_PLY || board.gameOver) return score;
 
-        return calculateMinMax(board, alpha, beta, ply);
+        return calculateMinMax(board, alpha, beta, ply,board.getCurrentPlayerColor());
     }
 
 
-    private int calculateMinMax(final Board board, int alpha, int beta, final int ply) {
-        final Color playerColor = board.getCurrentPlayerColor();
+    private int calculateMinMax(final Board board, int alpha, int beta, final int ply, Color playerColor) {
         Move bestMove = null;
 
         for (int i = 0; i < board.field.length; i++) {
@@ -58,6 +57,9 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     if (legalMove == null) continue;
 
                     int score = playerColor == Color.WHITE ? legalMove.getScore() : -legalMove.getScore();
+                    if(score >= 50){
+                        System.out.println(legalMove.toString());
+                    }
 
                     final Board childBoard = new Board(board);
 

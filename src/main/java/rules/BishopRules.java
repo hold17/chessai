@@ -12,19 +12,10 @@ import java.util.List;
 public class BishopRules extends CommonRules {
     @Override
     public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
-        final List<Move> moves = new ArrayList<>();
+        List<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getBishopMoves();
-        while (possibleMoves.size() > 0) {
-            final Square newSquare = possibleMoves.next();
-            if (!squareIsEmpty(gamestate, newSquare)) {
-                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
-//                    Tildel point hvis modstanderen sættes i skak
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
-                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            } else
-                // maybe return square value instead
-                moves.add(new Move(currentSquare, newSquare, 0));
-        }
+        if(piececolor == Color.WHITE) addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+        if(piececolor ==Color.BLACK) addMovesOpponent(possibleMoves,gamestate,currentSquare,moves);
         return moves;
     }
 

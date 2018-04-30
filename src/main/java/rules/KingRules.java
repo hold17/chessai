@@ -3,7 +3,6 @@ package rules;
 import board.Board;
 import board.Move;
 import util.Color;
-import util.FieldState;
 import util.MultiLevelQueue;
 import util.Square;
 
@@ -22,25 +21,10 @@ public class KingRules extends CommonRules {
 
     @Override
     public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
-        final List<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getKingMoves();
-        while (possibleMoves.size() > 0) {
-            final Square newSquare = possibleMoves.next();
-            final Move potentialMove = new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare));
-//            if (Rules.moveResultsInCheck(gamestate, potentialMove, piececolor)) {
-//                // Do nothing results in check
-//            }
-            if (!squareIsEmpty(gamestate, newSquare)) {
-
-                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
-//                    Tildel point hvis modstanderen sættes i skak
-                    moves.add(potentialMove);
-                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            } else
-                // maybe return square value instead
-
-                moves.add(new Move(currentSquare, newSquare, 0));
-        }
+        if(piececolor == Color.WHITE) addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+        if(piececolor == Color.BLACK) addMovesOpponent(possibleMoves,gamestate,currentSquare,moves);
         return moves;
     }
 

@@ -2,10 +2,9 @@ package rules;
 
 import board.Board;
 import board.Move;
-import util.Color;
-import util.FieldState;
-import util.Square;
+import util.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CommonRules {
@@ -25,6 +24,40 @@ public abstract class CommonRules {
         final int value = gameState.getFieldState(square).getValue();
         return (value > 0) ? value : -value;
     }
+
+    void addMovesAI(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
+        int score = -100;
+        int currentscore = 0;
+        while (possibleMoves.size() > 0 && currentscore > score) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
+                    moves.add(new Move(currentSquare, newSquare, currentscore));
+
+                }
+//                    Tildel point hvis modstanderen sættes i skak
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            }
+            score = currentscore;
+        }
+    }
+    void addMovesOpponent(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
+        int score = 100;
+        int currentscore = 0;
+        while (possibleMoves.size() > 0 && currentscore < score) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
+                    moves.add(new Move(currentSquare, newSquare, currentscore));
+
+                }
+//                    Tildel point hvis modstanderen sættes i skak
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            }
+            score = currentscore;
+        }
+    }
+
 
 /*    private boolean allMovesPutKingInCheck(final Board gameState, final Square square, final Color piececolor) {
         final List<Move> moves = getLegalMoves(gameState, square, piececolor);

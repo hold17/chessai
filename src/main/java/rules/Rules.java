@@ -21,44 +21,35 @@ public class Rules {
         kingrules = new KingRules();
     }
     public List<Move> getLegalMoves(final Board gameState, final Square currentSquare, final Color piececolor) {
-        final List<Move> moves = new ArrayList<>();
         final FieldState piece = gameState.getFieldState(currentSquare);
-        List<Move> newmoves = null;
+        List<Move> newmoves = new ArrayList<>();
         switch (piece) {
-            case PAWN:
             case WHITE_PAWN:
             case BLACK_PAWN:
                 newmoves = pawnrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
-            case ROOK:
             case WHITE_ROOK:
             case BLACK_ROOK:
                 newmoves = rookrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
-            case KNIGHT:
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
                newmoves = knightrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
-            case BISHOP:
             case WHITE_BISHOP:
             case BLACK_BISHOP:
                 newmoves = bishoprules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
-            case QUEEN:
             case WHITE_QUEEN:
             case BLACK_QUEEN:
                 newmoves = queenrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
-            case KING:
             case WHITE_KING:
             case BLACK_KING:
                 newmoves = kingrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
         }
-
-        moves.addAll(newmoves);
-        return moves;
+        return newmoves;
     }
 
 
