@@ -1,10 +1,12 @@
 package rules;
 
+import board.AlphaBetaAlgorithm;
 import board.Board;
 import board.Move;
 import util.Color;
 import util.FieldState;
 import util.Square;
+import util.UnrolledLinkedList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,26 +24,30 @@ public class Rules {
     }
     public List<Move> getLegalMoves(final Board gameState, final Square currentSquare, final Color piececolor) {
         final FieldState piece = gameState.getFieldState(currentSquare);
-        List<Move> newmoves = new ArrayList<>();
+        List<Move> newmoves = new UnrolledLinkedList<>();
         switch (piece) {
+
             case WHITE_PAWN:
             case BLACK_PAWN:
                 newmoves = pawnrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_ROOK:
             case BLACK_ROOK:
+//                if(AlphaBetaAlgorithm.currentTurn <=2)break; //Svagt sted at cutoff men man behøver vel ikke tjekke disse træk tidligt i spillet.
                 newmoves = rookrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_KNIGHT:
             case BLACK_KNIGHT:
-               newmoves = knightrules.getLegalMoves(gameState, currentSquare, piececolor);
+                newmoves = knightrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_BISHOP:
             case BLACK_BISHOP:
+                if(AlphaBetaAlgorithm.currentTurn <=2)break;
                 newmoves = bishoprules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_QUEEN:
             case BLACK_QUEEN:
+                if(AlphaBetaAlgorithm.currentTurn <=2)break;
                 newmoves = queenrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_KING:
@@ -135,6 +141,6 @@ public class Rules {
     public static boolean isVulnerable(final Board board, Square square) {
 
 
-       return false;
+        return false;
     }
 }

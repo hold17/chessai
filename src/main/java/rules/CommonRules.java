@@ -25,31 +25,25 @@ public abstract class CommonRules {
         return (value > 0) ? value : -value;
     }
 
-    void addMovesAI(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
+    void addMovesAI(MultiLevelQueue<Square> possibleMoves, Board gamestate,
+                    Square currentSquare, List moves){
+        while (possibleMoves.size() > 0) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
+                    moves.add(new Move(currentSquare, newSquare,
+                            getScoreValueAtMoveEnd(gamestate,newSquare)));
+                }
+//                    Tildel point hvis modstanderen sættes i skak
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            }
+            else
+                // maybe return square value instead
+                moves.add(new Move(currentSquare, newSquare, 0));
+        }
+    }
+}
 
-        while (possibleMoves.size() > 0) {
-            final Square newSquare = possibleMoves.next();
-            if (!squareIsEmpty(gamestate, newSquare)) {
-                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate,newSquare)));
-                }
-//                    Tildel point hvis modstanderen sættes i skak
-                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            }
-        }
-    }
-    void addMovesOpponent(MultiLevelQueue<Square> possibleMoves, Board gamestate, Square currentSquare, List moves){
-        while (possibleMoves.size() > 0) {
-            final Square newSquare = possibleMoves.next();
-            if (!squareIsEmpty(gamestate, newSquare)) {
-                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate,newSquare)));
-                }
-//                    Tildel point hvis modstanderen sættes i skak
-                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            }
-        }
-    }
 
 
 /*    private boolean allMovesPutKingInCheck(final Board gameState, final Square square, final Color piececolor) {
@@ -66,5 +60,5 @@ public abstract class CommonRules {
         return false;
     }*/
 
-}
+
 

@@ -22,6 +22,11 @@ public class Board {
     public FieldState[] field;
     //    public fState player;
     private int currentField;
+
+
+
+    private int blackkingField;
+    private int whitekingField;
 //    FieldState fState;
 
 
@@ -51,6 +56,8 @@ public class Board {
         this.lastMove = board.lastMove;
         this.maxMoveTime = board.maxMoveTime;
         this.currentMoveStartTime = board.currentMoveStartTime;
+        this.blackkingField = board.blackkingField;
+        this.whitekingField = board.whitekingField;
     }
 
     /**
@@ -76,6 +83,8 @@ public class Board {
         startingPlayer = Color.WHITE;
         machine = Color.BLACK;
         player = Color.WHITE;
+        whitekingField = Square.E1.getValue();
+        blackkingField = Square.E8.getValue();
 
         for (int i = 0; i < field.length; i++) {
             field[i] = FieldState.EMPTY;
@@ -120,8 +129,14 @@ public class Board {
         moveCount++;
         lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
 
-        if (player == Color.WHITE) player = Color.BLACK;
-        else player = Color.WHITE;
+        if (player == Color.WHITE) {
+            player = Color.BLACK;
+            if(field[to] == FieldState.WHITE_KING) whitekingField = to;
+        }
+        else {
+            player = Color.WHITE;
+            if(field[to] == FieldState.BLACK_KING) blackkingField = to;
+        }
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
 //        currentField = fieldnumber;
     }
@@ -161,5 +176,11 @@ public class Board {
         return lastMove;
     }
 
+    public int getBlackkingField() {
+        return blackkingField;
+    }
 
+    public int getWhitekingField() {
+        return whitekingField;
+    }
 }
