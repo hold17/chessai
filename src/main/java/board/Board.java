@@ -124,7 +124,7 @@ public class Board {
      */
     public void movePawnPromotion(int from, int to, String officerType) {
         final Square fromSquare = Square.getSquare(from);
-        final Square toSquare = Square.getSquare(from);
+        final Square toSquare = Square.getSquare(to);
 
         Move move = new Move(fromSquare, toSquare, 0, true, getFieldStateByLetter(officerType));
         move(move);
@@ -148,7 +148,6 @@ public class Board {
         field[to] = piece;
 
         moveCount++;
-        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
 
             if (player == Color.WHITE) {
                 player = Color.BLACK;
@@ -210,16 +209,16 @@ public class Board {
 
     private FieldState getFieldStateByLetter(String letter) {
         switch(letter) {
-            case "Q": return FieldState.WHITE_QUEEN;
-            case "R": return FieldState.WHITE_ROOK;
-            case "B": return FieldState.WHITE_BISHOP;
-            case "N": return FieldState.WHITE_KNIGHT;
-            case "P": return FieldState.WHITE_PAWN;
-            case "q": return FieldState.BLACK_QUEEN;
-            case "r": return FieldState.BLACK_ROOK;
-            case "b": return FieldState.BLACK_BISHOP;
-            case "n": return FieldState.BLACK_KNIGHT;
-            case "p": return FieldState.BLACK_PAWN;
+            case "Q": return FieldState.BLACK_QUEEN;
+            case "R": return FieldState.BLACK_ROOK;
+            case "B": return FieldState.BLACK_BISHOP;
+            case "N": return FieldState.BLACK_KNIGHT;
+            case "P": return FieldState.BLACK_PAWN;
+            case "q": return FieldState.WHITE_QUEEN;
+            case "r": return FieldState.WHITE_ROOK;
+            case "b": return FieldState.WHITE_BISHOP;
+            case "n": return FieldState.WHITE_KNIGHT;
+            case "p": return FieldState.WHITE_PAWN;
             default:
                 System.err.println("[Board.getFieldStateByLetter]: Oh noes! This argument doesn't work:" + letter);
         }

@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Main {
     private static final int MAJOR = 1;
     private static final int MINOR = 0;
-    private static final int PATCH = 1;
+    private static final int PATCH = 4;
     private static final boolean IS_SNAPSHOT = true;
     private static final String VERSION = "v" + MAJOR + "." + MINOR + "." + PATCH + (IS_SNAPSHOT ? "-SNAPSHOT" : "");
 
@@ -66,8 +66,8 @@ public class Main {
 //                    command = sc.next();
 //                    writer.write(" "+command);
                     final String moveStr = sc.next();
-                    writer.write(moveStr);
                     move(moveStr, board);
+                    writer.write("White: " + board.getLastMove());
                     // Dekod skaknotation for træk til felt indeks
 
                     break;
@@ -89,7 +89,9 @@ public class Main {
                 default:
 //                    System.out.println("#Ukendt kommando: " + command);
                     if (isAMove(command))
+                        writer.write("White: " + command);
                         move(command, board);
+                        writer.write("Black: " + board.getLastMove());
             }
 
             writer.println();
