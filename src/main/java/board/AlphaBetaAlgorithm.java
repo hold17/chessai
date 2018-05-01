@@ -41,12 +41,11 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
         if (ply++ == MAX_PLY || board.gameOver) return score;
 
-        return calculateMinMax(board, alpha, beta, ply);
+        return calculateMinMax(board, alpha, beta, ply,board.getCurrentPlayerColor());
     }
 
 
-    private int calculateMinMax(final Board board, int alpha, int beta, final int ply) {
-        final Color playerColor = board.getCurrentPlayerColor();
+    private int calculateMinMax(final Board board, int alpha, int beta, final int ply, Color playerColor) {
         Move bestMove = null;
 
         for (int i = 0; i < board.field.length; i++) {
@@ -66,6 +65,15 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
                     childBoard.move(legalMove);
                     score += prune(childBoard, score, alpha, beta, ply);
+//                    if (playerColor == Color.WHITE) {
+//                        int newscore = prune(childBoard, score, alpha, beta, ply);
+//                        if (newscore > score)
+//                            score = newscore;
+//                    } else {
+//                        int newscore = prune(childBoard, score, alpha, beta, ply);
+//                        if (newscore < score)
+//                            score = newscore;
+//                    }
 
                     if (score > alpha && playerColor == Color.WHITE) {
                         alpha = score;
@@ -81,9 +89,24 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
         }
 
         if (bestMove != null) {
+            board.gameOver = isCheck(board,playerColor==Color.WHITE ? Color.BLACK : Color.WHITE,bestMove);
             board.move(bestMove);
         }
 
         return playerColor == Color.WHITE ? alpha : beta;
+    }
+//    private boolean isCheck(Board board, Color playercolor, Move move) {
+//        Square kingpostion = null;
+//        for (int i = 0; i < board.field.length; i++) {
+//            if (board.field[i].isKing() && (playercolor == board.field[i].getColor())) {
+//                kingpostion = Square.getSquare(i);
+//            }
+//        }
+//        return kingpostion == move.getEndSquare();
+//    }
+    private boolean isCheck(Board board, Color playercolor, Move move){
+        int kingposition = playercolor == Color.WHITE ? board.getBlackkingField():board.getWhitekingField();
+
+        return (kingposition == move.getEndSquare().getValue());
     }
 }

@@ -13,7 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main {
+    private static final int MAJOR = 1;
+    private static final int MINOR = 0;
+    private static final int PATCH = 0;
+    private static final boolean IS_SNAPSHOT = true;
+    private static final String VERSION = "v" + MAJOR + "." + MINOR + "." + PATCH + (IS_SNAPSHOT ? "-SNAPSHOT" : "");
 
     public static void main(String[] args) throws Exception {
         final String fileName = System.getProperty("user.dir") + "\\log.txt";
@@ -47,7 +53,7 @@ public class Main {
                     break;
                 case "protover":
                     sc.next();
-                    System.out.println("feature ping=1 myname=\"ShallowTurquoise\" done=1");
+                    System.out.println("feature ping=1 myname=\"ShallowOrange (" + VERSION + ")\" done=1");
                     break;
                 case "ping":
                     System.out.println("pong " + sc.next());

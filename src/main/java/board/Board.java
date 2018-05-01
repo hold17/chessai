@@ -5,16 +5,29 @@ import util.FieldState;
 import util.Square;
 
 public class Board {
-    public FieldState[] field;
-    private String lastMove;
     private int moveCount;
+    public FieldState[] field;
+    Color player; //Aktuel spiller
+    Color winner; // Vinder
+    Color machine; // AI
+    private Color startingPlayer;
+    private long maxMoveTime;
+    private long currentMoveStartTime;
+
+    private String lastMove;
+//    private int moveCount;
     private int currentField;
     public boolean gameOver;
-    private Color startingPlayer;
-    private Color player; //Aktuel spiller
-    private Color machine; // AI
-    private Color winner; // Vinder
+//    private Color startingPlayer;
+//    private Color player; //Aktuel spiller
+//    private Color machine; // AI
+//    private Color winner; // Vinder
 //    private long maxMoveTime;
+
+
+
+    private int blackkingField;
+    private int whitekingField;
 //    private long currentMoveStartTime;
 
     public Board() {
@@ -32,9 +45,22 @@ public class Board {
         this.currentField = board.currentField;
         this.startingPlayer = board.startingPlayer;
         this.lastMove = board.lastMove;
-//        this.maxMoveTime = board.maxMoveTime;
-//        this.currentMoveStartTime = board.currentMoveStartTime;
+        this.maxMoveTime = board.maxMoveTime;
+        this.currentMoveStartTime = board.currentMoveStartTime;
+        this.blackkingField = board.blackkingField;
+        this.whitekingField = board.whitekingField;
     }
+
+    /**
+     * Kopierer brættet til alpha-beta
+     *
+     * @return kopi af bræt
+     */
+//    Board getDeepCopy() {
+//        Board board             = new Board();
+//
+//        return board;
+//    }
 
     public void initializeBoard() {
         gameOver = false;
@@ -44,6 +70,8 @@ public class Board {
         startingPlayer = Color.WHITE;
         machine = Color.BLACK;
         player = Color.WHITE;
+        whitekingField = Square.E1.getValue();
+        blackkingField = Square.E8.getValue();
 
         for (int i = 0; i < field.length; i++) {
             field[i] = FieldState.EMPTY;
@@ -102,7 +130,7 @@ public class Board {
         move(move);
     }
 
-    public void move(Move move) {
+    public void move(final Move move) {
         final int from = move.getStartSquare().getValue();
         final int to = move.getEndSquare().getValue();
 
@@ -120,10 +148,23 @@ public class Board {
         field[to] = piece;
 
         moveCount++;
+        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
 
-        if (player == Color.WHITE) player = Color.BLACK;
-        else player = Color.WHITE;
+            if (player == Color.WHITE) {
+                player = Color.BLACK;
+                if(field[to] == FieldState.WHITE_KING) whitekingField = to;
+            }
+            else {
+                player = Color.WHITE;
+                if(field[to] == FieldState.BLACK_KING) blackkingField = to;
+            }
+//        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
+//        currentField = fieldnumber;
     }
+
+//    public void move(Move move) {
+//        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
+//    }
 
 //    public void go(Board board, MoveAlgorithm moveAlgorithm) {
 //        currentMoveStartTime = System.currentTimeMillis() / 1000;
@@ -135,6 +176,7 @@ public class Board {
     }
 
     public FieldState getFieldState(final Square square) {
+        if (square.getValue() == -1) return FieldState.EMPTY;
         return field[square.getValue()];
     }
 
@@ -156,6 +198,14 @@ public class Board {
 
     public void setMachineColor(Color player) {
         this.machine = player;
+    }
+
+    public int getBlackkingField() {
+        return blackkingField;
+    }
+
+    public int getWhitekingField() {
+        return whitekingField;
     }
 
     private FieldState getFieldStateByLetter(String letter) {

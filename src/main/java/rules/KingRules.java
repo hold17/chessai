@@ -21,19 +21,46 @@ public class KingRules extends CommonRules {
 
     @Override
     public List<Move> getLegalMoves(Board gamestate, Square currentSquare, Color piececolor) {
-        final List<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getKingMoves();
-        while (possibleMoves.size() > 0) {
-            final Square newSquare = possibleMoves.next();
-            if (!squareIsEmpty(gamestate, newSquare)) {
-                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare))
-                    moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
-                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            } else
-                // maybe return square value instead
-                moves.add(new Move(currentSquare, newSquare, 0));
-        }
+        addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+//        if(piececolor == Color.WHITE) addMovesAI(possibleMoves,gamestate,currentSquare,moves);
+//        if(piececolor == Color.BLACK) addMovesOpponent(possibleMoves,gamestate,currentSquare,moves);
         return moves;
     }
+
+
+
+    boolean isCheck(Board board, Color kingColor) {
+        int kingPosition = Rules.findKingPosition(board,kingColor);
+        final Square kingSquare = Square.getSquare(kingPosition);
+        for (int i = 0; i < board.field.length; i++) {
+
+            final Color pieceColor = board.field[i].getColor();
+
+            if (kingColor != Color.NULL && Square.isValid(i) && (kingColor != pieceColor)) {
+                final Square fromSquare = Square.getSquare(i);
+                final List<Move> legalMoves = getLegalMoves(board, fromSquare, pieceColor);
+                for (final Move legalMove : legalMoves) {
+                    if (legalMove == null) continue;
+                    if(legalMove.getEndSquare() == kingSquare) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+    /**
+     * Hacky as fuck, but it sure as hell works
+     *
+     * @param board  Current state of the board
+     * @return Whether or not the king is in check.
+     */
+
 
 }

@@ -2,9 +2,7 @@ package rules;
 
 import board.Board;
 import board.Move;
-import util.Color;
-import util.FieldState;
-import util.Square;
+import util.*;
 
 import java.util.List;
 
@@ -26,6 +24,27 @@ public abstract class CommonRules {
         return (value > 0) ? value : -value;
     }
 
+    void addMovesAI(MultiLevelQueue<Square> possibleMoves, Board gamestate,
+                    Square currentSquare, List moves){
+        while (possibleMoves.size() > 0) {
+            final Square newSquare = possibleMoves.next();
+            if (!squareIsEmpty(gamestate, newSquare)) {
+                if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare)) {
+                    moves.add(new Move(currentSquare, newSquare,
+                            getScoreValueAtMoveEnd(gamestate,newSquare)));
+                }
+//                    Tildel point hvis modstanderen sættes i skak
+                possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
+            }
+            else
+                // maybe return square value instead
+                moves.add(new Move(currentSquare, newSquare, 0));
+        }
+    }
+}
+
+
+
 /*    private boolean allMovesPutKingInCheck(final Board gameState, final Square square, final Color piececolor) {
         final List<Move> moves = getLegalMoves(gameState, square, piececolor);
         for (final Move m : moves) {
@@ -40,5 +59,5 @@ public abstract class CommonRules {
         return false;
     }*/
 
-}
+
 
