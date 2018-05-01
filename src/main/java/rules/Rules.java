@@ -24,7 +24,7 @@ public class Rules {
     }
     public List<Move> getLegalMoves(final Board gameState, final Square currentSquare, final Color piececolor) {
         final FieldState piece = gameState.getFieldState(currentSquare);
-        List<Move> newmoves = new UnrolledLinkedList<>();
+        List<Move> newmoves = new ArrayList<>();
         switch (piece) {
 
             case WHITE_PAWN:
