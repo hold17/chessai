@@ -1,12 +1,12 @@
 package board;
 
-
 import util.Color;
 import util.FieldState;
 import util.Square;
 
 public class Board {
     private int moveCount;
+    public FieldState[] field;
     Color player; //Aktuel spiller
     Color winner; // Vinder
     Color machine; // AI
@@ -15,36 +15,27 @@ public class Board {
     private long currentMoveStartTime;
 
     private String lastMove;
-
-
-    public boolean gameOver;
-
-    public FieldState[] field;
-    //    public fState player;
+//    private int moveCount;
     private int currentField;
+    public boolean gameOver;
+//    private Color startingPlayer;
+//    private Color player; //Aktuel spiller
+//    private Color machine; // AI
+//    private Color winner; // Vinder
+//    private long maxMoveTime;
 
 
 
     private int blackkingField;
     private int whitekingField;
-//    FieldState fState;
+//    private long currentMoveStartTime;
 
-
-    //    public fState winner;
     public Board() {
         field = new FieldState[128];
         initializeBoard();   // HEX 88
     }
 
     public Board(Board board) {
-//        board.field = this.field.clone();
-//        board.player = this.player;
-//        board.winner = this.winner;
-//        board.machine = this.machine;
-//        board.moveCount = this.moveCount;
-//        board.gameOver = this.gameOver;
-//        board.currentField = this.currentField;
-
         this.field = board.field.clone();
         this.player = board.player;
         this.winner = board.winner;
@@ -71,10 +62,6 @@ public class Board {
 //        return board;
 //    }
 
-    boolean isGameOver() {
-        return gameOver;
-    }
-
     public void initializeBoard() {
         gameOver = false;
         moveCount = 0;
@@ -100,6 +87,7 @@ public class Board {
         for (int i = Square.A2.getValue(); i < Square.A2.getValue() + 8; i++) {
             field[i] = FieldState.WHITE_PAWN;
         }
+
         field[Square.A8.getValue()] = FieldState.BLACK_ROOK;
         field[(Square.B8.getValue())] = FieldState.BLACK_KNIGHT;
         field[(Square.C8.getValue())] = FieldState.BLACK_BISHOP;
@@ -111,53 +99,85 @@ public class Board {
         for (int i = Square.A7.getValue(); i < Square.A7.getValue() + 8; i++) {
             field[i] = FieldState.BLACK_PAWN;
         }
-
     }
 
     /**
-     * Tager kommandoer direkte fra konsollen, hvor der skal skrives i Winboard format, derfor skal strengen behandles
+     * Tager kommando i Winboard format, derfor skal strengen behandles
      *
      * @param from
      * @param to
-     * @return
      */
-    public void move(int from, int to) {
-        FieldState piece = field[from];
+    public void moveAlgebraic(int from, int to) {
+        final Square fromSquare = Square.getSquare(from);
+        final Square toSquare = Square.getSquare(to);
+
+        Move move = new Move(fromSquare, toSquare, 0);
+        move(move);
+    }
+
+    /**
+     * Tager pawn promotion kommando i Winboard format, derfor skal strengen behandles
+     *
+     * @param from
+     * @param to
+     * @param officerType Queen, Rook, Bishop, Knight
+     */
+    public void movePawnPromotion(int from, int to, String officerType) {
+        final Square fromSquare = Square.getSquare(field[from].getValue());
+        final Square toSquare = Square.getSquare(field[to].getValue());
+
+        Move move = new Move(fromSquare, toSquare, 0, true, getFieldStateByLetter(officerType));
+        move(move);
+    }
+
+    public void move(final Move move) {
+        final int from = move.getStartSquare().getValue();
+        final int to = move.getEndSquare().getValue();
+
+        lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
+
+        FieldState piece;
+        if (move.isPawnPromotion()) {
+            piece = move.getOfficerType();
+            lastMove += piece.getLetter();
+        } else
+            piece = field[from];
+
         // Flytning af brik, som udgangspunkt med forudsætning om lovlige træk
         field[from] = FieldState.EMPTY;
         field[to] = piece;
+
         moveCount++;
         lastMove = " " + Square.getSquare(from) + Square.getSquare(to);
 
-        if (player == Color.WHITE) {
-            player = Color.BLACK;
-            if(field[to] == FieldState.WHITE_KING) whitekingField = to;
-        }
-        else {
-            player = Color.WHITE;
-            if(field[to] == FieldState.BLACK_KING) blackkingField = to;
-        }
+            if (player == Color.WHITE) {
+                player = Color.BLACK;
+                if(field[to] == FieldState.WHITE_KING) whitekingField = to;
+            }
+            else {
+                player = Color.WHITE;
+                if(field[to] == FieldState.BLACK_KING) blackkingField = to;
+            }
 //        player = (player == fState.O) ? fState.X : fState.O;   // Skift spiller
 //        currentField = fieldnumber;
     }
 
-    public void move(Move move) {
-        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
-    }
+//    public void move(Move move) {
+//        move(move.getStartSquare().getValue(), move.getEndSquare().getValue());
+//    }
 
-    public void go(Board board, MoveAlgorithm moveAlgorithm) {
-        currentMoveStartTime = System.currentTimeMillis() / 1000;
-        moveAlgorithm.aiPlay(board);
+//    public void go(Board board, MoveAlgorithm moveAlgorithm) {
+//        currentMoveStartTime = System.currentTimeMillis() / 1000;
+//        moveAlgorithm.aiPlay(board);
+//    }
 
+    boolean isGameOver() {
+        return gameOver;
     }
 
     public FieldState getFieldState(final Square square) {
         if (square.getValue() == -1) return FieldState.EMPTY;
         return field[square.getValue()];
-    }
-
-    public void setMachineColor(Color player) {
-        this.machine = player;
     }
 
     public Color getMachineColor() {
@@ -176,6 +196,10 @@ public class Board {
         return lastMove;
     }
 
+    public void setMachineColor(Color player) {
+        this.machine = player;
+    }
+
     public int getBlackkingField() {
         return blackkingField;
     }
@@ -183,4 +207,23 @@ public class Board {
     public int getWhitekingField() {
         return whitekingField;
     }
+
+    private FieldState getFieldStateByLetter(String letter) {
+        switch(letter) {
+            case "Q": return FieldState.WHITE_QUEEN;
+            case "R": return FieldState.WHITE_ROOK;
+            case "B": return FieldState.WHITE_BISHOP;
+            case "N": return FieldState.WHITE_KNIGHT;
+            case "P": return FieldState.WHITE_PAWN;
+            case "q": return FieldState.BLACK_QUEEN;
+            case "r": return FieldState.BLACK_ROOK;
+            case "b": return FieldState.BLACK_BISHOP;
+            case "n": return FieldState.BLACK_KNIGHT;
+            case "p": return FieldState.BLACK_PAWN;
+            default:
+                System.err.println("[Board.getFieldStateByLetter]: Oh noes! This argument doesn't work:" + letter);
+        }
+        return null;
+    }
+
 }

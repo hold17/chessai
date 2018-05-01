@@ -19,8 +19,8 @@ public abstract class CommonRules {
         return (color1 == color2);
     }
 
-    int getScoreValueAtMoveEnd(final Board gameState, final Square square) {
-        final int value = gameState.getFieldState(square).getValue();
+    int getScoreValueAtMoveEnd(final Board gameState, final Square newSquare) {
+        final int value = gameState.getFieldState(newSquare).getValue();
         return (value > 0) ? value : -value;
     }
 

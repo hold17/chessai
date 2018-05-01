@@ -201,4 +201,5 @@ public enum Square {
         final char letter = (char) (file + 96);
         return letter + Integer.toString(rank);
     }
+
 }

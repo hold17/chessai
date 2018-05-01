@@ -88,9 +88,8 @@ public class Main {
                     break;
                 default:
 //                    System.out.println("#Ukendt kommando: " + command);
-                    if (isAMove(command)) {
+                    if (isAMove(command))
                         move(command, board);
-                    }
             }
 
             writer.println();
@@ -118,28 +117,29 @@ public class Main {
     private static void move(String moveStr, Board board) {
         int pieceIndex = Square.getSquare(moveStr.substring(0, 2)).getValue();
         int destinationIndex = Square.getSquare(moveStr.substring(2, 4)).getValue();
-//        System.out.println("from: " + pieceIndex + "  to: " + destinationIndex);
 
-        board.move(pieceIndex, destinationIndex);
+        if (isPawnPromotion(moveStr))
+            board.movePawnPromotion(pieceIndex, destinationIndex, moveStr.substring(4,5));
+        else
+            board.moveAlgebraic(pieceIndex, destinationIndex);
 
         go(board);
     }
 
     private static void go(Board board) {
-//        help(board);
         MoveAlgorithm alphaBetaAlgorithm = new AlphaBetaAlgorithm(5);
         alphaBetaAlgorithm.aiPlay(board);
         System.out.println("move " + board.getLastMove());
-
     }
-
 
     private static boolean isAMove(String message) {
-        final String regex = "[a-h][1-8][a-h][1-8]";
-
+        final String regex = "[a-h][1-8][a-h][1-8][qrbnQRBN]?";
         return message.matches(regex);
     }
+
+    private static boolean isPawnPromotion(String message) {
+        final String regex = "[a-h][1-8][a-h][1-8][qrbnQRBN]";
+        return message.matches(regex);
+    }
+
 }
-
-
-

@@ -7,7 +7,6 @@ import util.Square;
 import java.util.List;
 
 public class AlphaBetaAlgorithm implements MoveAlgorithm {
-    public static int currentTurn = 1;
     private static final int MAX_ALPHA = -99999;
     private static final int MAX_BETA = -MAX_ALPHA;
     private static int[] nodesPerPly = new int[16]; // increase this if we ever get beyond 6 plies
@@ -21,7 +20,10 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 
     @Override
     public void aiPlay(Board board) {
+        long iterationTimeStart = System.currentTimeMillis();
         prune(board, 0, MAX_ALPHA, MAX_BETA, 0);
+        long iterationTimePassed = System.currentTimeMillis() - iterationTimeStart;
+        System.err.println("Time " + iterationTimePassed + " ms");
         StringBuilder sb = new StringBuilder("# Nodes per ply:\n");
 
         for (int i = 0; i < nodesPerPly.length; i++) {
@@ -31,8 +33,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
             }
         }
 
-        System.out.println(sb);
-        currentTurn++;
+        System.err.println(sb);
     }
 
     private int prune(Board board, int score, int alpha, int beta, int ply) {
@@ -59,8 +60,9 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
                     if (legalMove == null) continue;
 
                     int score = playerColor == Color.WHITE ? legalMove.getScore() : -legalMove.getScore();
-//                    int score = legalMove.getScore();
+
                     final Board childBoard = new Board(board);
+
                     childBoard.move(legalMove);
                     score += prune(childBoard, score, alpha, beta, ply);
 //                    if (playerColor == Color.WHITE) {

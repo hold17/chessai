@@ -155,8 +155,6 @@ buildNumber.properties
 
 dbsettings.properties
 
-winboard.debug
-winboard.ini
 winboard/winboard.debug
 winboard/winboard.ini
 log.txt
