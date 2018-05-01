@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Main {
     private static final int MAJOR = 1;
     private static final int MINOR = 0;
-    private static final int PATCH = 0;
+    private static final int PATCH = 1;
     private static final boolean IS_SNAPSHOT = true;
     private static final String VERSION = "v" + MAJOR + "." + MINOR + "." + PATCH + (IS_SNAPSHOT ? "-SNAPSHOT" : "");
 
