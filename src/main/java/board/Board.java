@@ -95,8 +95,8 @@ public class Board {
      * @param officerType Queen, Rook, Bishop, Knight
      */
     public void movePawnPromotion(int from, int to, String officerType) {
-        final Square fromSquare = Square.getSquare(field[from].getValue());
-        final Square toSquare = Square.getSquare(field[to].getValue());
+        final Square fromSquare = Square.getSquare(from);
+        final Square toSquare = Square.getSquare(from);
 
         Move move = new Move(fromSquare, toSquare, 0, true, getFieldStateByLetter(officerType));
         move(move);
