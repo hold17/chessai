@@ -14,15 +14,17 @@ import java.util.List;
 public class PawnRules extends CommonRules {
     @Override
     public List<Move> getLegalMoves(final Board gamestate, final Square currentSquare, Color piececolor) {
-        final List<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>();
         MultiLevelQueue<Square> possibleMoves = currentSquare.getPawnMoves(piececolor);
         while (possibleMoves.size() > 0) {
             final Square newSquare = possibleMoves.next();
             if (!squareIsEmpty(gamestate, newSquare)) {
                 if (!sameColorOnBothSquares(gamestate, currentSquare, newSquare) && currentSquare.sameDiagonal(newSquare))
+                    //                    Tildel point hvis modstanderen sættes i skak
                     moves.add(new Move(currentSquare, newSquare, getScoreValueAtMoveEnd(gamestate, newSquare)));
                 possibleMoves.removeSpecificLevel(possibleMoves.getCurrentLevelName());
-            } else {
+            }
+            else {
                 // don't move to empty diagonal square
                 if (currentSquare.sameDiagonal(newSquare))
                     continue;

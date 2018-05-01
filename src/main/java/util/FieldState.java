@@ -102,5 +102,4 @@ public enum FieldState {
 
         return letter;
     }
-
 }
