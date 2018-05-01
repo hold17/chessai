@@ -62,7 +62,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
 //                    int score = legalMove.getScore();
                     final Board childBoard = new Board(board);
                     childBoard.move(legalMove);
-                    score = prune(childBoard, score, alpha, beta, ply);
+                    score += prune(childBoard, score, alpha, beta, ply);
 //                    if (playerColor == Color.WHITE) {
 //                        int newscore = prune(childBoard, score, alpha, beta, ply);
 //                        if (newscore > score)

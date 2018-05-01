@@ -4,7 +4,6 @@ import board.Board;
 import board.Move;
 import util.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CommonRules {
