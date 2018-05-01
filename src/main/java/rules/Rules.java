@@ -1,12 +1,10 @@
 package rules;
 
-import board.AlphaBetaAlgorithm;
 import board.Board;
 import board.Move;
 import util.Color;
 import util.FieldState;
 import util.Square;
-import util.UnrolledLinkedList;
 
 import java.util.ArrayList;
 import java.util.List;

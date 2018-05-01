@@ -96,7 +96,7 @@ public enum FieldState {
             letter = "P";
         }
 
-        if (isBlack()) {
+        if (isWhite()) {
             letter = letter.toLowerCase();
         }
 
