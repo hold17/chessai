@@ -39,6 +39,11 @@ public class MultiLevelQueue<E> {
         clearLevelAndDecreaseCount();
     }
 
+    /**
+     * Removes the queue at the specified level.
+     *
+     * @param levelName The name of the level to be removed
+     */
     public void removeSpecificLevel(String levelName) {
         final Queue<E> level = levels.get(levelName);
         size -= level.size();
@@ -49,6 +54,9 @@ public class MultiLevelQueue<E> {
         return levels.firstEntry().getKey();
     }
 
+    /**
+     * Removes the queue at the current level.
+     */
     private void clearLevelAndDecreaseCount() {
         final Queue<E> level = getHeadLevel();
         size -= level.size();
