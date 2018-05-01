@@ -89,7 +89,7 @@ public class AlphaBetaAlgorithm implements MoveAlgorithm {
         }
 
         if (bestMove != null) {
-            board.gameOver = isCheck(board,playerColor==Color.WHITE?Color.BLACK:Color.WHITE,bestMove);
+            board.gameOver = isCheck(board,playerColor==Color.WHITE ? Color.BLACK : Color.WHITE,bestMove);
             board.move(bestMove);
         }
 

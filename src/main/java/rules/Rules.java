@@ -42,12 +42,10 @@ public class Rules {
                 break;
             case WHITE_BISHOP:
             case BLACK_BISHOP:
-                if(AlphaBetaAlgorithm.currentTurn <=2)break;
                 newmoves = bishoprules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_QUEEN:
             case BLACK_QUEEN:
-                if(AlphaBetaAlgorithm.currentTurn <=2)break;
                 newmoves = queenrules.getLegalMoves(gameState, currentSquare, piececolor);
                 break;
             case WHITE_KING:
